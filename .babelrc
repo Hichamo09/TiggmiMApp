@@ -1,0 +1,13 @@
+{
+    "presets": [
+      "@babel/preset-env",
+      "module:metro-react-native-babel-preset"
+    ],
+    "plugins": [
+      ["module-resolver", {
+        "root": ["./src", "./src/components", "./src/libs"],
+        "extensions": [".js", ".ios.js", ".android.js", ".style.js"]
+      }]
+    ]
+  }
+  
