@@ -1,3 +1,3 @@
 import TextInput from './TextInput'
 
-export default TextInput
+module.exports =  TextInput

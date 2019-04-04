@@ -15,10 +15,10 @@ export default class TextInput extends React.Component {
 
   render () {
     const placeholderTextColor = styleVariables.placeholderColor
-    const { clearButtonMode, renderRightAccesoryView } = this.props
+    const { clearButtonMode, renderRightAccesoryView, textInputContainer } = this.props
     const { rightAccessoryViewWidth } = this.state
     return (
-      <View style={styles.container}>
+      <View style={textInputContainer}>
         <RNTextInput
           key={rightAccessoryViewWidth}
           ref={this.setTextInputRef}

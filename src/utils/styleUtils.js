@@ -1,4 +1,4 @@
-import { StyleSheet } from '../atoms';
+import { StyleSheet } from '../components/atoms';
 import baseTheme from '../styles/baseTheme';
 import appTheme from '../styles/appTheme';
 import fontDescriptors, { fontMixin } from '../styles/fontDescriptors';

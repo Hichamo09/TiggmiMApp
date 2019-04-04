@@ -5,9 +5,6 @@ export const styleVariables = {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flexGrow: 1
-  },
   formField: {
     height: 30,
     color: 'black',

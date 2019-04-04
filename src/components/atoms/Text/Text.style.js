@@ -1,7 +1,5 @@
-import { StyleSheet } from 'atoms'
+import { StyleSheet } from 'react-native'
 
-export default StyleSheet.generate(({ colors }) => ({
-  textStyle: {
-    color: colors.primaryText
-  }
-}))
+export default StyleSheet.create({
+
+})

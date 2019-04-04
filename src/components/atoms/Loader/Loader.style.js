@@ -1,5 +1,5 @@
 import Color from 'color'
-import { StyleSheet } from 'atoms'
+import { StyleSheet } from '../index'
 
 export const styleVariables = StyleSheet.generateVariables(({ styles }) => ({
   loader: styles.loader,
