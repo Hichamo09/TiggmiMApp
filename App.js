@@ -1,3 +1,5 @@
+import pollyfill from './src/app/polyfill';
+
 import React from 'react'
 import { Provider, connect } from 'react-redux'
 import { Router } from 'react-native-router-flux'

@@ -6,13 +6,15 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "i18n": "babel-node src/I18n/i18n"
   },
   "dependencies": {
     "axios": "^0.18.0",
     "lodash": "^4.17.11",
     "react": "16.8.3",
     "react-native": "0.59.2",
+    "react-native-i18n": "^2.0.15",
     "react-native-iphone-x-helper": "^1.2.0",
     "react-native-progress": "^3.6.0",
     "react-native-router-flux": "^4.0.6",
@@ -22,7 +24,12 @@
     "url": "^0.11.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.4.3",
     "@babel/core": "^7.4.0",
+    "@babel/node": "^7.2.2",
+    "@babel/plugin-proposal-class-properties": "^7.4.0",
+    "@babel/plugin-transform-react-jsx-source": "^7.2.0",
+    "@babel/plugin-transform-runtime": "^7.4.3",
     "@babel/preset-env": "^7.4.2",
     "@babel/preset-react": "^7.0.0",
     "@babel/runtime": "^7.4.2",
@@ -30,8 +37,6 @@
     "babel-jest": "^24.5.0",
     "babel-plugin-add-module-exports": "^1.0.0",
     "babel-plugin-module-resolver": "^3.2.0",
-    "babel-plugin-transform-react-jsx-source": "^6.22.0",
-    "babel-plugin-transform-runtime": "^6.23.0",
     "eslint": "^5.16.0",
     "jest": "^24.5.0",
     "metro-react-native-babel-preset": "^0.53.1",
