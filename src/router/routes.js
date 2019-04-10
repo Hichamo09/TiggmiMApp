@@ -1,4 +1,5 @@
 export default {
-    Login: 'Login'
+    Login: 'Login',
+    Profile: 'Profile'
   };
   
