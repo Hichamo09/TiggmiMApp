@@ -1,4 +1,4 @@
-![TIGGMI APP](https://pasteboard.co/I9M7H8P.png)
+![TIGGMI APP](https://i.ibb.co/hsh48qc/Screen-Shot-2019-04-12-at-3-58-56-PM.png)
 
 ## Table of Contents
 - [tiggmi-app](#tiggmi-app)
