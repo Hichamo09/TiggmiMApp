@@ -1,24 +1,15 @@
-import React, { Component } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet
-} from 'react-native';
+import { connect } from 'react-redux';
+import { checkAuth } from '../../actions/AuthActions'
 
-export default class Dashboard extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>Dashboard component</Text>
-        <Text>Dashboard component</Text>
-        <Text>Dashboard component</Text>
-        <Text>Dashboard component</Text>
-        <Text>Dashboard component</Text>
-      </View>
-    );
-  }
-}
+import Dashboard from './main';
 
-const styles = StyleSheet.create({
 
-});
+
+
+
+
+const mapStateToProps = () => ({
+
+})
+
+export default connect(mapStateToProps, {checkAuth})(Dashboard)

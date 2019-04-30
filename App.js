@@ -17,7 +17,6 @@ import NavigationService from './src/routes/navigationService'
 class App extends Component {
 
   componentWillMount () {
-    console.log('------firebase');
     firebase.initializeApp(firebase_config);
   }
 

@@ -14,7 +14,7 @@ import url from 'url';
 import styles from './main.styles'
 import LogoIcon from '../../assets/ic_logo.png'
 
-const captchaUrl = `https://workers-ef768.firebaseapp.com/captcha.html`
+const captchaUrl = `https://safe-caverns-72277.herokuapp.com/`
 
 class Login extends Component {
 
@@ -27,22 +27,16 @@ class Login extends Component {
     }
   }
 
-  componentWillMount() {
-    console.log('props', this.props);
-  }
+
 
   _handleResponse = data => {
-    console.log('-----------data', data);
     let query = url.parse(data.url, true).query;
-    console.log(query);
 
 
     if (query.hasOwnProperty('token')) {
-      console.log('-------exist');
       this.setState({ showModal: false });
       this.props.signUp(this.state.phone_number, query.token);
     } else if (query.hasOwnProperty('cancel')) {
-      console.log('--------doesnt exist');
       this.setState({ showModal: false, status: "cancelled" });
     }
   }
@@ -56,7 +50,7 @@ class Login extends Component {
         onRequestClose={() => this.setState({ showModal: false })}
         >
           <WebView
-            source={{ uri: "http://10.0.2.2:3000" }}
+            source={{ uri: captchaUrl }}
             onNavigationStateChange={data =>
               this._handleResponse(data)
             }
@@ -95,7 +89,6 @@ class Login extends Component {
   }
 
   _signUp = () => {
-    console.log(this.state.phone_number);
     if (this.props.codeIsSent) {
       this.props.confirmCode(this.props.firebaseCode, this.state.confirmationCode);
       return console.log('---------confirm method');

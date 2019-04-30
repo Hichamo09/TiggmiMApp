@@ -18,6 +18,9 @@ const AppNavigator = createStackNavigator({
       header: null
     }
   }
+}, {
+  initialRouteName: 'Dashboard',// if you are working on a specific page in dev mode you can switch from here
+
 });
 
 

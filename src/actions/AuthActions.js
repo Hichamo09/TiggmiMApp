@@ -8,8 +8,23 @@ import {
 import NavigationService from '../routes/navigationService';
 
 
+export const checkAuth = () => {
+  return (dispatch) => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        dispatch({
+          type: SUCCESS_LOGIN,
+          payload: user
+        })
+      }else {
+        NavigationService.navigate('Login')
+      }
+    })
+  }
+}
+
+
 export const signUp = (number, captchaToken) => {
-  console.log('-----------number', number, ' token ', captchaToken);
   number = `+${number}`
   const captchaVerifier = {
     type: 'recaptcha',
@@ -18,7 +33,6 @@ export const signUp = (number, captchaToken) => {
   return (dispatch) => {
     firebase.auth().signInWithPhoneNumber(number, captchaVerifier)
     .then((code) => {
-      console.log('--------code', code);
       dispatch({
         type: LOGIN_CONFIRMATION,
         payload: code
@@ -26,7 +40,6 @@ export const signUp = (number, captchaToken) => {
     })
     .catch((err) => {
       loginFailed(dispatch, "Oops! something is wrong")
-      console.log('--------err', err);
     });
   }
 }
@@ -34,7 +47,6 @@ export const signUp = (number, captchaToken) => {
 export const confirmCode = (confirm, code) => {
   return (dispatch) => {
     confirm.confirm(code).then((result) => {
-      console.log('-----------------result', result);
       dispatch({
         type: SUCCESS_LOGIN,
         payload: result.user
@@ -43,14 +55,12 @@ export const confirmCode = (confirm, code) => {
 
     }).catch((err) => {
       loginFailed(dispatch, "confirmation code is wrong")
-      console.log('--------------err', err);
     });
   }
 }
 
 
 export const loginFailed = (dispatch, message) => {
-  console.log('----------loginFailed', message);
   dispatch({
     type: FAILED_LOGIN,
     payload: message
