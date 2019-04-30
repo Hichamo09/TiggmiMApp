@@ -33,21 +33,26 @@ const styles = StyleSheet.create({
      minWidth: 180
     },
     continueButtonContainer: {
-      marginTop: 40,
+      marginTop: 20,
       paddingHorizontal: 22,
       paddingVertical: 10,
       width: 100,
       alignItems: "center",
-      justifyContent: "center"
-
     },
     continueButton:{
       backgroundColor: '#2b7cd9',
       borderRadius: 24,
       fontSize: 16,
+      paddingTop: 12,
       minWidth: 100,
-      marginTop: 10,
+      color: "#fff",
       textAlign: "center",
+      justifyContent: "center"
+    },
+    errorMessageText: {
+      marginTop: 10,
+      color: "red",
+      fontSize: 18
     }
 })
 

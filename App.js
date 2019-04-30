@@ -6,18 +6,30 @@ import {
 } from 'react-native';
 import { Root } from 'native-base';
 import { Provider } from 'react-redux';
+import firebase from 'firebase';
 
+import { firebase_config } from './src/config'
 import AppContainer from './src/routes'
 import store from './src/store';
+import NavigationService from './src/routes/navigationService'
 
 
 class App extends Component {
+
+  componentWillMount () {
+    console.log('------firebase');
+    firebase.initializeApp(firebase_config);
+  }
 
   render() {
     return (
       <Provider store={store}>
         <Root>
-          <AppContainer />
+          <AppContainer
+            ref={navigatorRef => {
+              NavigationService.setTopLevelNavigator(navigatorRef);
+            }}
+          />
         </Root>
       </Provider>
     );
