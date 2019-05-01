@@ -1,4 +1,6 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Dimensions } from 'react-native'
+
+const windowWidth = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
     container: {
@@ -34,8 +36,36 @@ const styles = StyleSheet.create({
         alignItems: 'center', 
         justifyContent: 'center',
     },
-    
-
+    itemName: {
+        color:'#205ea5', 
+        fontWeight: '400', 
+        fontSize: 18
+    },
+    itemRole: {
+        color:'#000000', 
+        fontWeight: 'bold', 
+        fontSize: 16
+    },
+    listview: { 
+        alignItems: 'center', 
+        justifyContent: 'center', 
+        height: 200, 
+        borderColor: '#d6d6d6', 
+        borderWidth: 1, 
+        width: (windowWidth/2) + 2, 
+        marginLeft: -1
+    },
+    listImage: { 
+        width: 90, 
+        height: 90 
+    },
+    fab: {
+        position: 'absolute',
+        margin: 16,
+        right: 0,
+        bottom: -100,
+        backgroundColor:'#145bb4'
+    }
 });
 
 module.exports = styles

@@ -80,23 +80,23 @@ export default class AddMember extends Component {
           <View>
           </View>
         </View>
-        <View style={{paddingTop: 20, paddingLeft: 10,}}>
-            <Text style={{fontSize: 20, color: '#3d3d3d',}}>Gender:</Text>
+        <View style={styles.generalView}>
+            <Text style={styles.title}>Gender:</Text>
             <View style={{flexDirection: 'row', padding: 5}}>
               <Image
                 source={require('../../assets/male_gender.png')}
-                style={{width: 70, height: 70}}
+                style={styles.genderImage}
               />
               <Image
                 source={require('../../assets/female_gender.png')}
-                style={{width: 70, height: 70}}
+                style={styles.genderImage}
               />
             </View>
         </View>
-        <View style={{paddingTop: 20, paddingLeft: 10,}}>
-            <Text style={{fontSize: 20, color: '#3d3d3d',}}>Information:</Text>
+        <View style={styles.generalView}>
+            <Text style={styles.title}>Information:</Text>
             <View style={styles.searchSection}>
-                <View style={{marginRight:12, width: 26, height: 26, backgroundColor:'#FFF', alignItems: 'center', justifyContent: 'center', borderRadius:20, borderWidth: 1, borderColor: '#FFF',}}>
+                <View style={styles.inputIcon}>
                   <FontAwesome name='user' size={20} color='#3289c8'/>
                 </View>
                 <TextInput
@@ -108,7 +108,7 @@ export default class AddMember extends Component {
                 />
             </View>
             <View style={styles.searchSection}>
-                <View style={{marginRight:12, width: 26, height: 26, backgroundColor:'#FFF', alignItems: 'center', justifyContent: 'center', borderRadius:20, borderWidth: 1, borderColor: '#FFF',}}>
+                <View style={styles.inputIcon}>
                   <FontAwesome name='phone' size={20} color='#3289c8'/>
                 </View>
                 <TextInput
@@ -120,21 +120,21 @@ export default class AddMember extends Component {
                 />
             </View>
         </View>
-        <View style={{paddingTop: 20, paddingLeft: 10,}}>
-            <Text style={{fontSize: 20, color: '#3d3d3d',}}>Role:</Text>
-            <View style={{flexDirection: 'row', padding: 5}}>
-              <View style={{marginRight:12, width: 20, height: 20, backgroundColor:'#999999', alignItems: 'center', justifyContent: 'center', borderRadius:20, borderWidth: 1, borderColor: '#999999',}}>
+        <View style={styles.generalView}>
+            <Text style={styles.title}>Role:</Text>
+            <View style={styles.role}>
+              <View style={styles.roleIcon}>
                 <Feather name='check' size={18} color='#ffffff'/>
               </View>
-              <Text style={{paddingRight: 20}}>Admin</Text>
-              <View style={{marginRight:12, width: 20, height: 20, backgroundColor:'#999999', alignItems: 'center', justifyContent: 'center', borderRadius:20, borderWidth: 1, borderColor: '#999999',}}>
+              <Text style={styles.roleText}>Admin</Text>
+              <View style={styles.roleIcon}>
                 <Feather name='check' size={18} color='#ffffff'/>
               </View>
               <Text>Member</Text>
             </View>
         </View>
         <View style={styles.List}>
-            <Text style={{fontSize: 20, color: '#3d3d3d', marginLeft: 10}}>Access:</Text>
+            <Text style={styles.titleAccess}>Access:</Text>
               <FlatList
                 data={this.state.roomdata}
                 numColumns={2}

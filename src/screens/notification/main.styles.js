@@ -28,6 +28,24 @@ const styles = StyleSheet.create({
         borderRadius: 10, 
         borderWidth: 1, 
         borderColor: '#bfd6f5',
+    },
+    notificationHeader:{
+        flexDirection: 'row', 
+        justifyContent:'space-between', 
+        paddingHorizontal: 5
+    },
+    notificationMsg: {
+        fontWeight: '400', 
+        fontSize: 20, 
+        color:'#3d4e62'
+    },
+    notificationType: {
+        fontWeight: 'bold', 
+        fontSize: 20, 
+        color: '#2d3645'
+    },
+    notificationDetail: {
+        paddingHorizontal: 5
     }
 });
 

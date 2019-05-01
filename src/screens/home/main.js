@@ -89,7 +89,7 @@ export default class Home extends Component {
                 numColumns={3}
                 renderItem={({item, index}) => (
                   <Image
-                    style={{ width: (windowWidth/3), height: 136 }}
+                    style={styles.nano}
                     source={rooms[item.room].url}
                     resizeMode="contain"
                   />

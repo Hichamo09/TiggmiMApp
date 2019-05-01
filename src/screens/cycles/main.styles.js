@@ -19,12 +19,21 @@ const styles = StyleSheet.create({
     cycle: { 
         backgroundColor: '#fff', 
         width: windowWidth/2-10, 
-        paddingTop: 20,
-        paddingHorizontal: 5,
+        padding: 10,
         margin: 2,
         borderRadius: 10, 
         borderWidth: 1, 
         borderColor: '#999999',
+    },
+    singleCycle: {
+        paddingHorizontal: 5, 
+        alignItems: 'center', 
+        justifyContent: 'center',
+    },
+    cycleText: {
+        fontWeight: '400', 
+        fontSize: 20, 
+        color: '#3b82cc'
     }
 });
 

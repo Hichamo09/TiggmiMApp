@@ -52,17 +52,9 @@ export default class Cycles extends Component {
 
     renderDetail = (item) => {
         return (
-            <View style={{ 
-                backgroundColor: '#fff', 
-                width: windowWidth/2-10, 
-                padding: 10,
-                margin: 2,
-                borderRadius: 10, 
-                borderWidth: 1, 
-                borderColor: '#999999',
-            }}>
-                <View style={{paddingHorizontal: 5, alignItems: 'center', justifyContent: 'center',}}>
-                    <Text style={{fontWeight: '400', fontSize: 20, color: '#3b82cc'}}>{item.name}</Text>
+            <View style={styles.cycle}>
+                <View style={styles.singleCycle}>
+                    <Text style={styles.cycleText}>{item.name}</Text>
                 </View>
             </View>
         )

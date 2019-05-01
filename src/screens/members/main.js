@@ -1,13 +1,10 @@
 import React, { Component } from 'react'
 import {
-  View, Image, Text, FlatList, Dimensions, ScrollView, TouchableOpacity
+  View, Image, Text, FlatList, ScrollView, TouchableOpacity
 } from 'react-native'
 import styles from './main.styles'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { FAB } from 'react-native-paper';
-
-
-const windowWidth = Dimensions.get('window').width;
 
 export default class Members extends Component {
   static navigationOptions = ({navigation}) => ({
@@ -73,14 +70,14 @@ export default class Members extends Component {
                 data={this.state.members}
                 numColumns={2}
                 renderItem={({item, index}) => (
-                  <View style={{ alignItems: 'center', justifyContent: 'center', height: 200, borderColor: '#d6d6d6', borderWidth: 1, width: (windowWidth/2) + 2, marginLeft: -1}}>
+                  <View style={styles.listview}>
                     <Image
-                      style={{ width: 90, height: 90 }}
+                      style={styles.listImage}
                       source={require('../../assets/man-image.png')}
                       resizeMode="contain"
                     />
-                    <Text style={{color:'#205ea5', fontWeight: '400', fontSize: 18}}>{item.name}</Text>
-                    <Text style={{color:'#000000', fontWeight: 'bold', fontSize: 16}}>{item.role}</Text>
+                    <Text style={styles.itemName}>{item.name}</Text>
+                    <Text style={styles.itemRole}>{item.role}</Text>
                   </View>
                   
                 )}
@@ -91,13 +88,7 @@ export default class Members extends Component {
         </ScrollView>
         <View>
           <FAB
-            style={{
-              position: 'absolute',
-              margin: 16,
-              right: 0,
-              bottom: -100,
-              backgroundColor:'#145bb4'
-            }}
+            style={styles.fab}
             icon="add"
             color="#fff"
             onPress={() => this.props.navigation.navigate('AddMember')}

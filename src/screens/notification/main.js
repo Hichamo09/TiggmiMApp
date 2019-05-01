@@ -87,12 +87,12 @@ export default class Notification extends Component {
     renderDetail = (item) => {
         return (
             <View style={styles.notification}>
-                <View style={{flexDirection: 'row', justifyContent:'space-between', paddingHorizontal: 5}}>
-                    <Text style={{fontWeight: 'bold', fontSize: 20, color: '#2d3645'}}>{item.type}</Text>
-                    <Text style={{fontWeight: '400', fontSize: 20, color:'#3d4e62'}}>{item.time}</Text>
+                <View style={styles.notificationHeader}>
+                    <Text style={styles.notificationType}>{item.type}</Text>
+                    <Text style={styles.notificationMsg}>{item.time}</Text>
                 </View>
-                <View style={{paddingHorizontal: 5}}>
-                    <Text style={{fontWeight: '400', fontSize: 20, color: '#00061b'}}>{item.message}</Text>
+                <View style={styles.notificationDetail}>
+                    <Text style={styles.notificationMsg}>{item.message}</Text>
                 </View>
             </View>
         )

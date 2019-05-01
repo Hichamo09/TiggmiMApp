@@ -100,7 +100,51 @@ const styles = StyleSheet.create({
         flexDirection: 'row', 
         alignItems: 'center', 
         justifyContent: 'center',
-    }
+    },
+    generalView: {
+        paddingTop: 20, 
+        paddingLeft: 10,
+    },
+    title: {
+        fontSize: 20, 
+        color: '#3d3d3d',
+    },
+    titleAccess: {
+        fontSize: 20, 
+        color: '#3d3d3d', 
+        marginLeft: 10
+    },
+    genderImage: {
+        width: 70, 
+        height: 70
+    },
+    inputIcon: {
+        marginRight:12, 
+        width: 26, 
+        height: 26, 
+        backgroundColor:'#FFF', 
+        alignItems: 'center', 
+        justifyContent: 'center', 
+        borderRadius:20, 
+        borderWidth: 1, 
+        borderColor: '#FFF',
+    },
+    role: {
+        flexDirection: 'row', 
+        padding: 5
+    },
+    roleIcon: {
+        marginRight:12, 
+        width: 20, 
+        height: 20, 
+        backgroundColor:'#999999', 
+        alignItems: 'center', 
+        justifyContent: 'center', 
+        borderRadius:20, 
+        borderWidth: 1, 
+        borderColor: '#999999',
+    },
+    roleText: {paddingRight: 20},
 
 });
 

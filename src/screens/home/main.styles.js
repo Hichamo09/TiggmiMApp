@@ -1,4 +1,6 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Dimensions } from 'react-native'
+const windowWidth = Dimensions.get('window').width;
+
 
 const styles = StyleSheet.create({
     container: {
@@ -6,6 +8,9 @@ const styles = StyleSheet.create({
         //justifyContent: 'flex-start',
         //alignItems: 'center',
         backgroundColor: '#FFFFFF',
+    },
+    nano:{
+        width: (windowWidth/3), height: 136
     },
     headerText: {
         fontSize: 20,
