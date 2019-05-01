@@ -13,6 +13,7 @@ import AppContainer from './src/routes'
 import store from './src/store';
 import NavigationService from './src/routes/navigationService'
 
+console.disableYellowBox = true
 
 class App extends Component {
 
