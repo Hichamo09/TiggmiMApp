@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
-import { checkAuth } from '../../actions/AuthActions'
+import { addMember } from '../../actions/MemberActions'
+
 
 import AddMember from './main';
 
@@ -7,4 +8,4 @@ const mapStateToProps = () => ({
 
 })
 
-export default connect(mapStateToProps, {checkAuth})(AddMember)
+export default connect(mapStateToProps, {addMember})(AddMember)

@@ -1,11 +1,10 @@
 import firebase from 'firebase';
-import { NavigationActions } from 'react-navigation';
+import NavigationService from '../routes/navigationService';
 import {
   LOGIN_CONFIRMATION,
   SUCCESS_LOGIN,
   FAILED_LOGIN
 } from './types';
-import NavigationService from '../routes/navigationService';
 
 
 export const checkAuth = () => {
@@ -17,7 +16,7 @@ export const checkAuth = () => {
           payload: user
         })
       }else {
-        NavigationService.navigate('Login')
+        NavigationService.navigate('Home')
       }
     })
   }

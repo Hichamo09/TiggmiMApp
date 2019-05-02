@@ -26,7 +26,7 @@ const HomeStack = createStackNavigator(
     Cycles: Cycles,
   },
   {
-    initialRouteName: "Home"
+    initialRouteName: "AddMember"
   }
 );
 
@@ -53,9 +53,9 @@ const TabNavigator = createBottomTabNavigator(
         if (routeName === 'Home') {
           //iconName = `ios-information-circle${focused ? '' : '-outline'}`;
           iconName = 'home';
-          // Sometimes we want to add badges to some icons. 
+          // Sometimes we want to add badges to some icons.
           // You can check the implementation below.
-          //IconComponent = HomeIconWithBadge; 
+          //IconComponent = HomeIconWithBadge;
         } else if (routeName === 'Screen2') {
           iconName = `recycle`;
         }else if (routeName === 'Screen3') {
@@ -87,15 +87,9 @@ const AppNavigator = createStackNavigator({
     navigationOptions: {
       header: null
     }
-  },
-  Dashboard: {
-    screen: Dashboard,
-    navigationOptions: {
-      header: null
-    }
-  },
+  }
 }, {
-  initialRouteName: 'Dashboard',// if you are working on a specific page in dev mode you can switch from here
+  initialRouteName: 'Login',// if you are working on a specific page in dev mode you can switch from here
 
 });
 

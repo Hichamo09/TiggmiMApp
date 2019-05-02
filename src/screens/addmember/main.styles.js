@@ -1,5 +1,7 @@
 import { StyleSheet } from 'react-native'
 
+
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -31,9 +33,9 @@ const styles = StyleSheet.create({
         marginTop: -10,
     },
     topView: {
-        flexDirection: 'row', 
-        alignItems: 'center', 
-        justifyContent: 'center', 
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
         paddingTop: 20,
     },
     searchSection: {
@@ -64,27 +66,27 @@ const styles = StyleSheet.create({
         fontSize: 14
     },
     Image: {
-        width: 90, 
+        width: 90,
         height: 90
     },
     cityTemp: {
-        flexDirection: 'row', 
-        alignItems: 'center', 
-        justifyContent: 'space-between', 
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
         paddingLeft: 15,
     },
     Temp: {
-        color: '#277cd7' , 
-        fontWeight: '300', 
+        color: '#277cd7' ,
+        fontWeight: '300',
         fontSize: 60
     },
     Degree: {
-        color: '#277cd7' , 
-        fontSize: 25, 
+        color: '#277cd7' ,
+        fontSize: 25,
         marginTop: -25,
     },
     House: {
-        paddingRight: 40, 
+        paddingRight: 40,
         marginLeft: -20
     },
     List: {
@@ -92,60 +94,63 @@ const styles = StyleSheet.create({
         paddingBottom: 100,
     },
     houseTemp: {
-        color: '#669de6' , 
-        fontSize: 20, 
+        color: '#669de6' ,
+        fontSize: 20,
         paddingLeft: 20,
     },
     tempView: {
-        flexDirection: 'row', 
-        alignItems: 'center', 
+        flexDirection: 'row',
+        alignItems: 'center',
         justifyContent: 'center',
     },
     generalView: {
-        paddingTop: 20, 
+        paddingTop: 20,
         paddingLeft: 10,
     },
     title: {
-        fontSize: 20, 
+        fontSize: 20,
         color: '#3d3d3d',
     },
     titleAccess: {
-        fontSize: 20, 
-        color: '#3d3d3d', 
+        fontSize: 20,
+        color: '#3d3d3d',
         marginLeft: 10
     },
     genderImage: {
-        width: 70, 
+        width: 70,
         height: 70
     },
     inputIcon: {
-        marginRight:12, 
-        width: 26, 
-        height: 26, 
-        backgroundColor:'#FFF', 
-        alignItems: 'center', 
-        justifyContent: 'center', 
-        borderRadius:20, 
-        borderWidth: 1, 
+        marginRight:12,
+        width: 26,
+        height: 26,
+        backgroundColor:'#FFF',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius:20,
+        borderWidth: 1,
         borderColor: '#FFF',
     },
     role: {
-        flexDirection: 'row', 
+        flexDirection: 'row',
         padding: 5
     },
-    roleIcon: {
-        marginRight:12, 
-        width: 20, 
-        height: 20, 
-        backgroundColor:'#999999', 
-        alignItems: 'center', 
-        justifyContent: 'center', 
-        borderRadius:20, 
-        borderWidth: 1, 
-        borderColor: '#999999',
+    roleIcon: (color) => {
+      return {
+          marginRight:12,
+          width: 20,
+          height: 20,
+          backgroundColor: color,
+          alignItems: 'center',
+          justifyContent: 'center',
+          borderRadius:20,
+          borderWidth: 1,
+          borderColor: '#999999',
+      }
     },
     roleText: {paddingRight: 20},
 
 });
+
 
 module.exports = styles

@@ -8,9 +8,10 @@ import Feather from 'react-native-vector-icons/Feather';
 import rooms from './rooms';
 
 const windowWidth = Dimensions.get('window').width;
+styles.roleColor = "#ff0000";
 
 export default class AddMember extends Component {
-  static navigationOptions = ({navigation}) => ({
+  static navigationOptions = ({navigation, state}) => ({
     headerStyle: {
       backgroundColor: '#fff',
       borderBottomColor: '#3b82cc',
@@ -32,7 +33,13 @@ export default class AddMember extends Component {
     ),
     headerRight: (
       <View style={{marginRight:12, width: 36, height: 36, backgroundColor:'#999999', alignItems: 'center', justifyContent: 'center', borderRadius:20, borderWidth: 1, borderColor: '#999999',}}>
-        <Feather name='check' size={28} color='#ffffff'/>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.state.params.addMember();
+          }}
+        >
+          <Feather name='check' size={28} color='#ffffff'/>
+        </TouchableOpacity>
       </View>
     ),
   });
@@ -40,10 +47,13 @@ export default class AddMember extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { 
+    this.state = {
         temp: 12,
         city: 'Casablanca',
-        searchString: '',
+        full_name: "",
+        phone_number: "",
+        role: "",
+        gender: "",
         hometemp: 27,
         roomdata: [
           {
@@ -65,6 +75,21 @@ export default class AddMember extends Component {
     };
   }
 
+  componentDidMount () {
+    this.props.navigation.setParams({
+     addMember: this.addMember
+    })
+  }
+
+  addMember = () => {
+    this.props.addMember({
+      full_name: this.state.full_name,
+      phone_number: this.state.phone_number,
+      gender: this.state.gender,
+      role: this.state.role
+    })
+  }
+
   render () {
     return (
       <ScrollView style={styles.container}>
@@ -83,14 +108,26 @@ export default class AddMember extends Component {
         <View style={styles.generalView}>
             <Text style={styles.title}>Gender:</Text>
             <View style={{flexDirection: 'row', padding: 5}}>
-              <Image
-                source={require('../../assets/male_gender.png')}
-                style={styles.genderImage}
-              />
-              <Image
-                source={require('../../assets/female_gender.png')}
-                style={styles.genderImage}
-              />
+              <TouchableOpacity
+                onPress={() => {
+                  this.setState({gender: "male"})
+                }}
+              >
+                <Image
+                  source={require('../../assets/male_gender.png')}
+                  style={styles.genderImage}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  this.setState({gender: "female"})
+                }}
+              >
+                <Image
+                  source={require('../../assets/female_gender.png')}
+                  style={styles.genderImage}
+                />
+              </TouchableOpacity>
             </View>
         </View>
         <View style={styles.generalView}>
@@ -102,7 +139,7 @@ export default class AddMember extends Component {
                 <TextInput
                     style={styles.input}
                     placeholder="Full Name"
-                    onChangeText={(searchString) => {this.setState({searchString})}}
+                    onChangeText={(full_name) => {this.setState({full_name})}}
                     underlineColorAndroid="transparent"
                     placeholderTextColor='#fff'
                 />
@@ -114,7 +151,7 @@ export default class AddMember extends Component {
                 <TextInput
                     style={styles.input}
                     placeholder="Phone Number"
-                    onChangeText={(searchString) => {this.setState({searchString})}}
+                    onChangeText={(phone_number) => {this.setState({phone_number})}}
                     underlineColorAndroid="transparent"
                     placeholderTextColor='#fff'
                 />
@@ -122,15 +159,29 @@ export default class AddMember extends Component {
         </View>
         <View style={styles.generalView}>
             <Text style={styles.title}>Role:</Text>
+
             <View style={styles.role}>
-              <View style={styles.roleIcon}>
+            <View style={styles.roleIcon(this.state.role === "admin" ? "#2587af" : "#999999")}>
                 <Feather name='check' size={18} color='#ffffff'/>
               </View>
-              <Text style={styles.roleText}>Admin</Text>
-              <View style={styles.roleIcon}>
+              <TouchableOpacity
+                onPress={() => {
+                  this.setState({role: "admin"})
+                }}
+              >
+                <Text style={styles.roleText}>Admin</Text>
+              </TouchableOpacity>
+
+              <View style={styles.roleIcon(this.state.role === "member" ? "#2587af" : "#999999")}>
                 <Feather name='check' size={18} color='#ffffff'/>
               </View>
-              <Text>Member</Text>
+              <TouchableOpacity
+                onPress={() => {
+                  this.setState({role: "member"})
+                }}
+              >
+                <Text>Member</Text>
+              </TouchableOpacity>
             </View>
         </View>
         <View style={styles.List}>
