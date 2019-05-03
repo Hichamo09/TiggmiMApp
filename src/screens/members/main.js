@@ -70,16 +70,17 @@ export default class Members extends Component {
                 data={this.state.members}
                 numColumns={2}
                 renderItem={({item, index}) => (
-                  <View style={styles.listview}>
-                    <Image
-                      style={styles.listImage}
-                      source={require('../../assets/man-image.png')}
-                      resizeMode="contain"
-                    />
-                    <Text style={styles.itemName}>{item.name}</Text>
-                    <Text style={styles.itemRole}>{item.role}</Text>
-                  </View>
-                  
+                  <TouchableOpacity onPress={() => this.props.navigation.navigate('Profile')}>
+                    <View style={styles.listview}>
+                      <Image
+                        style={styles.listImage}
+                        source={require('../../assets/man-image.png')}
+                        resizeMode="contain"
+                      />
+                      <Text style={styles.itemName}>{item.name}</Text>
+                      <Text style={styles.itemRole}>{item.role}</Text>
+                    </View>
+                  </TouchableOpacity>
                 )}
               />
             </View>

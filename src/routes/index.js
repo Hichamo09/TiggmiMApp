@@ -12,6 +12,7 @@ import Notification from '../screens/notification';
 import Members from '../screens/members';
 import AddMember from '../screens/addmember';
 import Cycles from '../screens/cycles';
+import Profile from '../screens/profile';
 
 import drawerContentComponents from '../screens/custom/menu';
 
@@ -24,6 +25,7 @@ const HomeStack = createStackNavigator(
     Members: Members,
     AddMember: AddMember,
     Cycles: Cycles,
+    Profile: Profile,
   },
   {
     initialRouteName: "AddMember"
