@@ -40,7 +40,7 @@ export default class Home extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { 
+    this.state = {
         temp: 12,
         city: 'Casablanca',
         hometemp: 27,
@@ -65,6 +65,10 @@ export default class Home extends Component {
           }
         ]
     };
+  }
+
+  componentDidMount () {
+    this.props.checkAuth();
   }
 
   render () {

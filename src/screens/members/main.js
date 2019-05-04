@@ -32,7 +32,7 @@ export default class Members extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { 
+    this.state = {
         members: [
           {
             name: 'Lemine Soulami',
@@ -58,36 +58,40 @@ export default class Members extends Component {
     };
   }
 
+  componentDidMount () {
+    this.props.getMembers();
+  }
+
   render () {
     return (
       <View>
         <ScrollView>
           <View style={styles.container}>
             <Text style={styles.titleText}>Members</Text>
-            
+
             <View style={styles.List}>
               <FlatList
-                data={this.state.members}
+                data={this.props.members}
                 numColumns={2}
                 renderItem={({item, index}) => (
-                  <TouchableOpacity onPress={() => this.props.navigation.navigate('Profile')}>
+                  <TouchableOpacity onPress={() => this.props.navigation.navigate('Profile', {member: item})}>
                     <View style={styles.listview}>
                       <Image
                         style={styles.listImage}
-                        source={require('../../assets/man-image.png')}
+                        source={item.gender === "male" ? require('../../assets/man-image.png') : require('../../assets/woman-image.png')}
                         resizeMode="contain"
                       />
-                      <Text style={styles.itemName}>{item.name}</Text>
+                      <Text style={styles.itemName}>{item.full_name}</Text>
                       <Text style={styles.itemRole}>{item.role}</Text>
                     </View>
                   </TouchableOpacity>
                 )}
               />
             </View>
-            
+
           </View>
         </ScrollView>
-        <View>
+        <View style={styles.fabContainer}>
           <FAB
             style={styles.fab}
             icon="add"

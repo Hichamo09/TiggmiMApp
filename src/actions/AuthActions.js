@@ -50,7 +50,7 @@ export const confirmCode = (confirm, code) => {
         type: SUCCESS_LOGIN,
         payload: result.user
       })
-      NavigationService.navigate('Dashboard')
+      NavigationService.navigate('Home')
 
     }).catch((err) => {
       loginFailed(dispatch, "confirmation code is wrong")

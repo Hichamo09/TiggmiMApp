@@ -28,7 +28,7 @@ const HomeStack = createStackNavigator(
     Profile: Profile,
   },
   {
-    initialRouteName: "AddMember"
+    initialRouteName: "Home"
   }
 );
 

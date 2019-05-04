@@ -45,9 +45,18 @@ export default class Profile extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+          member: this.props.navigation.state.params.member
+        }
     }
 
     render() {
+      const {
+        full_name,
+        phone_number,
+        gender,
+        role
+      } = this.state.member
         return (
         <ScrollView style={styles.container}>
             <View style={styles.nameHeader}>
@@ -57,7 +66,7 @@ export default class Profile extends Component {
                 </View>
             </TouchableOpacity>
             <View style={styles.topName}>
-                <Text style={styles.titleText}>Lamine Soulami</Text>
+                <Text style={styles.titleText}>{full_name}</Text>
             </View>
             <View>
             </View>
@@ -74,7 +83,7 @@ export default class Profile extends Component {
                 <FontAwesome name="check-circle" size={32} color="#2B7CD9" />
             </View>
             <View>
-                <Text style={styles.generalText}>Admin</Text>
+                <Text style={styles.generalText}>{role}</Text>
             </View>
             </View>
             <View style={styles.generalFlow}>
@@ -82,7 +91,7 @@ export default class Profile extends Component {
                 <Ionicons name="ios-call" size={34} color="#2B7CD9" />
             </View>
             <View>
-                <Text style={styles.generalText2}>0612345678</Text>
+                <Text style={styles.generalText2}>{phone_number}</Text>
             </View>
             </View>
             <View style={styles.accessView}>
