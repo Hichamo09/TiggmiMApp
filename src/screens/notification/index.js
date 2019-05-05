@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
-import { checkAuth } from '../../actions/AuthActions'
+import { getNotifications, addNotification } from '../../actions/NotificationActions';
 
 import Notification from './main';
 
-const mapStateToProps = () => ({
-
+const mapStateToProps = (state) => ({
+  notifications: state.notification.notificationsList
 })
 
-export default connect(mapStateToProps, {checkAuth})(Notification)
+export default connect(mapStateToProps, {getNotifications, addNotification})(Notification)

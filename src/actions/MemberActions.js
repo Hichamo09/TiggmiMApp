@@ -1,6 +1,5 @@
 import {storeData, getData} from '../utils/_firebase';
-import { objToArray } from '../utils/_helpers';
-import firebase from 'firebase';
+import { _objToArray } from '../utils/_helpers';
 import NavigationService from '../routes/navigationService';
 import {
   MEMBERS_LIST
@@ -9,7 +8,7 @@ import {
 
 export const addMember = (data) => {
   return (dispatch) => {
-    let userId = firebase.auth().currentUser.uid;
+    let userId = getState().auth.currentUser.uid;
     storeData('users/' + userId + '/members/', data)
     .then((result) => {
       NavigationService.navigate('Members');
@@ -23,12 +22,12 @@ export const addMember = (data) => {
 
 export const getMembers = () => {
   return async (dispatch) => {
-    let userId = await firebase.auth().currentUser.uid;
+    let userId = getState().auth.currentUser.uid;
     getData(`users/${userId}/members`)
     .then((result) => {
       dispatch({
         type: MEMBERS_LIST,
-        payload: objToArray(result)
+        payload: _objToArray(result)
       })
     })
     .catch((err) => {

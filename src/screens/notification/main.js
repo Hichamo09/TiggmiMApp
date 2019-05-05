@@ -4,6 +4,8 @@ import {
 } from 'react-native'
 import styles from './main.styles'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { _notificationTime } from '../../utils/_helpers';
+
 
 
 
@@ -33,54 +35,8 @@ export default class Notification extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { 
-            data: [
-                {
-                    type: 'Alert',
-                    message: 'The room light is on for more than 24h',
-                    time: 'now'
-                },
-                {
-                    type: 'Information',
-                    message: 'You can control the temperature if you have an AC',
-                    time: '1 hour ago'
-                },
-                {
-                    type: 'Update',
-                    message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                    time: '3 days ago'
-                },
-                {
-                    type: 'Alert',
-                    message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                    time: '4 days ago'
-                },
-                {
-                    type: 'Update',
-                    message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                    time: '4 days ago'
-                },
-                {
-                    type: 'Update',
-                    message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                    time: '4 days ago'
-                },
-                {
-                    type: 'Update',
-                    message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                    time: '4 days ago'
-                },
-                {
-                    type: 'Update',
-                    message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                    time: '4 days ago'
-                },
-                {
-                    type: 'Update',
-                    message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                    time: '4 days ago'
-                },
-            ]
+        this.state = {
+
         };
     }
 
@@ -89,13 +45,17 @@ export default class Notification extends Component {
             <View style={styles.notification}>
                 <View style={styles.notificationHeader}>
                     <Text style={styles.notificationType}>{item.type}</Text>
-                    <Text style={styles.notificationMsg}>{item.time}</Text>
+                    <Text style={styles.notificationMsg}>{_notificationTime(item.time)}</Text>
                 </View>
                 <View style={styles.notificationDetail}>
                     <Text style={styles.notificationMsg}>{item.message}</Text>
                 </View>
             </View>
         )
+    }
+
+    componentDidMount () {
+      this.props.getNotifications();
     }
 
     render () {
@@ -105,10 +65,11 @@ export default class Notification extends Component {
                     <Text style={styles.titleText}>Notifications</Text>
                     <View style={styles.List}>
                         <FlatList
-                            data={this.state.data}
+                            data={this.props.notifications}
                             renderItem={({item, index}) => (
                                 this.renderDetail(item)
                             )}
+                            keyExtractor={item => item.id}
                         />
                     </View>
                 </View>
