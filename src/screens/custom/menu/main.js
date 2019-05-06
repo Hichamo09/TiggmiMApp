@@ -32,7 +32,7 @@ export default class drawerContentComponents extends Component {
                         <Text onPress={this.navigateToScreen('Profile')} style={styles.screenTextStyle}>Alert History</Text>
                     </View>
                     <View style={styles.screenStyle}>
-                        <Text onPress={this.navigateToScreen('Login')} style={styles.screenTextStyle}>Electric consumption</Text>
+                        <Text onPress={this.navigateToScreen('Rooms')} style={styles.screenTextStyle}>Electric consumption</Text>
                     </View>
                     <View style={styles.screenStyle}>
                         <Text onPress={this.navigateToScreen('Cycles')} style={styles.screenTextStyle}>Modles & Cycles</Text>
