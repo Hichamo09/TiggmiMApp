@@ -31,7 +31,34 @@ const styles = StyleSheet.create({
         marginLeft: -20,
         color: '#135CB3',
     },
-    
+    roomDetailsView: {
+        flexDirection: 'row', 
+        alignItems: 'center',
+    },
+    window: {
+        width: (windowWidth/5)*2, 
+        height: 180, 
+        resizeMode: 'stretch'
+    },
+    light: {
+        width: (windowWidth/5), 
+        height: 180, 
+        resizeMode: 'stretch'
+    },
+    premiumView: {
+        alignItems: 'flex-start', 
+        paddingLeft: 40,
+    },
+    premiumImage: {
+        width: 100, 
+        height: 26, 
+        resizeMode: 'stretch'
+    },
+    temp: {
+        width: windowWidth-40, 
+        height: 60, 
+        resizeMode: 'stretch'
+    }
 });
 
 module.exports = styles;

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Dimensions, TouchableOpacity } from 'react-native';
+import { View, Text, Dimensions, TouchableOpacity, Image } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
@@ -131,13 +131,57 @@ export default class Rooms extends Component {
             />
         );
     }
+    _renderRoomDetails = () => {
+        return (
+            <View style={styles.roomDetailsView}>
+                <View style={{flex:2}}>
+                    <Image
+                        source={require('../../assets/room-bar.png')}
+                        style={styles.window}
+                    />
+                </View>
+                <View style={{flex:2}}>
+                    <Image
+                        source={require('../../assets/room-bar.png')}
+                        style={styles.window}
+                    />
+                </View>
+                <View style={{flex:1}}>
+                    <Image
+                        source={require('../../assets/light.png')}
+                        style={styles.light}
+                    />
+                </View>
+            </View>
+        )
+    }
 
+    _premium = () => {
+        return (
+            <View>
+                <View style={styles.premiumView}>
+                    <Image
+                        source={require('../../assets/premium.png')}
+                        style={styles.premiumImage}
+                    />
+                </View>
+                <View style={{alignItems: 'center',}}>
+                    <Image
+                        source={require('../../assets/temp.png')}
+                        style={styles.temp}
+                    />
+                </View>
+            </View>
+        )
+    }
     render() {
         return (
                 <View style={styles.container}>
                     { this._renderTitle() }
                     { this._renderSlider() }
                     { this._pagination() }
+                    { this._renderRoomDetails() }
+                    { this._premium() }
                 </View>
                 
                 
