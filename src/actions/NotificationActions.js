@@ -29,7 +29,7 @@ export const addNotification = (data) => {
     message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     time: moment().toISOString()
   }
-  return (dispatch) => {
+  return (dispatch, getState) => {
     let userId = getState().auth.currentUser.uid;
     storeData('users/' + userId + '/notifications/', data)
     .then((result) => {

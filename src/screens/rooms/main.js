@@ -67,6 +67,10 @@ export default class Rooms extends Component {
         };
     }
 
+    componentDidMount () {
+      this.props.getRooms();
+    }
+
     _renderTitle = () => {
         return (
             <View style={styles.nameHeader}>
@@ -100,8 +104,8 @@ export default class Rooms extends Component {
                         this.setState({myText: this.state.carouselItems[index].title})
                     }}
                 />
-                
-                
+
+
             </View>
         );
     }
@@ -183,8 +187,8 @@ export default class Rooms extends Component {
                     { this._renderRoomDetails() }
                     { this._premium() }
                 </View>
-                
-                
+
+
         );
     }
 }

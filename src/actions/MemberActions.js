@@ -7,7 +7,7 @@ import {
 
 
 export const addMember = (data) => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
     let userId = getState().auth.currentUser.uid;
     storeData('users/' + userId + '/members/', data)
     .then((result) => {
@@ -21,7 +21,7 @@ export const addMember = (data) => {
 
 
 export const getMembers = () => {
-  return async (dispatch) => {
+  return (dispatch, getState) => {
     let userId = getState().auth.currentUser.uid;
     getData(`users/${userId}/members`)
     .then((result) => {
