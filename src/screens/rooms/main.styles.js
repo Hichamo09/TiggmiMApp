@@ -40,6 +40,11 @@ const styles = StyleSheet.create({
         height: 180, 
         resizeMode: 'stretch'
     },
+    window2: {
+        width: (windowWidth/5)*4, 
+        height: 180, 
+        resizeMode: 'stretch'
+    },
     light: {
         width: (windowWidth/5), 
         height: 180, 

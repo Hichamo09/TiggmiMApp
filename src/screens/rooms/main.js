@@ -5,6 +5,8 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 
 import Room from './roomComponent';
+import RoomDetailsComponent from './roomDetailsComponent';
+import PremiumComponent from './PremiumComponent';
 import styles from './main.styles';
 
 
@@ -42,26 +44,79 @@ export default class Rooms extends Component {
             gestureName: 'none',
             backgroundColor: '#fff',
             activeIndex: 0,
+            roomsLength: 2,
             carouselItems: [
                 {
                     title:"Bedroom 1",
-                    url: require('../../assets/slider-room1.png')
+                    url: require('../../assets/slider-room1.png'),
+                    rooms: [
+                        {
+                            room: require('../../assets/room-bar.png'),
+                        },
+                        {
+                            room: require('../../assets/room-bar.png'),
+                        }
+                    ],
+                    light: require('../../assets/light.png'),
+                    premium: require('../../assets/premium.png'),
+                    temp: require('../../assets/temp.png')
                 },
                 {
                     title:"Bedroom 2",
-                    url: require('../../assets/slider-room2.png')
+                    url: require('../../assets/slider-room2.png'),
+                    rooms: [
+                        {
+                            room: require('../../assets/room-bar.png'),
+                        },
+                        {
+                            room: require('../../assets/room-bar.png'),
+                        }
+                    ],
+                    light: require('../../assets/light.png'),
+                    premium: require('../../assets/premium.png'),
+                    temp: require('../../assets/temp.png')
                 },
                 {
                     title:"Bedroom 3",
-                    url: require('../../assets/slider-room1.png')
+                    url: require('../../assets/slider-room1.png'),
+                    rooms: [
+                        {
+                            room: require('../../assets/single-window.png'),
+                        }
+                    ],
+                    light: require('../../assets/light2.png'),
+                    premium: require('../../assets/premium.png'),
+                    temp: require('../../assets/temp.png')
                 },
                 {
                     title:"Bedroom 4",
-                    url: require('../../assets/slider-room2.png')
+                    url: require('../../assets/slider-room2.png'),
+                    rooms: [
+                        {
+                            room: require('../../assets/room-bar.png'),
+                        },
+                        {
+                            room: require('../../assets/room-bar.png'),
+                        }
+                    ],
+                    light: require('../../assets/light.png'),
+                    premium: require('../../assets/premium.png'),
+                    temp: require('../../assets/temp.png')
                 },
                 {
                     title:"Bedroom 5",
-                    url: require('../../assets/slider-room1.png')
+                    url: require('../../assets/slider-room1.png'),
+                    rooms: [
+                        {
+                            room: require('../../assets/room-bar.png'),
+                        },
+                        {
+                            room: require('../../assets/room-bar.png'),
+                        }
+                    ],
+                    light: require('../../assets/light.png'),
+                    premium: require('../../assets/premium.png'),
+                    temp: require('../../assets/temp.png')
                 }
             ]
         };
@@ -69,6 +124,9 @@ export default class Rooms extends Component {
 
     componentDidMount () {
       this.props.getRooms();
+      let roomsLength = this.state.carouselItems[0].rooms.length;
+      console.log(roomsLength)
+      this.setState({roomsLength});
     }
 
     _renderTitle = () => {
@@ -102,6 +160,10 @@ export default class Rooms extends Component {
                     onSnapToItem = { (index) => {
                         this.setState({activeIndex:index})
                         this.setState({myText: this.state.carouselItems[index].title})
+
+                        let roomsLength = this.state.carouselItems[index].rooms.length;
+                        console.log(roomsLength)
+                        this.setState({roomsLength});
                     }}
                 />
 
@@ -136,46 +198,13 @@ export default class Rooms extends Component {
         );
     }
     _renderRoomDetails = () => {
-        return (
-            <View style={styles.roomDetailsView}>
-                <View style={{flex:2}}>
-                    <Image
-                        source={require('../../assets/room-bar.png')}
-                        style={styles.window}
-                    />
-                </View>
-                <View style={{flex:2}}>
-                    <Image
-                        source={require('../../assets/room-bar.png')}
-                        style={styles.window}
-                    />
-                </View>
-                <View style={{flex:1}}>
-                    <Image
-                        source={require('../../assets/light.png')}
-                        style={styles.light}
-                    />
-                </View>
-            </View>
-        )
+        return <RoomDetailsComponent roomsLength={this.state.roomsLength} carouselItem={this.state.carouselItems[this.state.activeIndex]} />
+
     }
 
     _premium = () => {
         return (
-            <View>
-                <View style={styles.premiumView}>
-                    <Image
-                        source={require('../../assets/premium.png')}
-                        style={styles.premiumImage}
-                    />
-                </View>
-                <View style={{alignItems: 'center',}}>
-                    <Image
-                        source={require('../../assets/temp.png')}
-                        style={styles.temp}
-                    />
-                </View>
-            </View>
+            <PremiumComponent premium={this.state.carouselItems[this.state.activeIndex].premium} temp={this.state.carouselItems[this.state.activeIndex].temp} />
         )
     }
     render() {
@@ -187,8 +216,6 @@ export default class Rooms extends Component {
                     { this._renderRoomDetails() }
                     { this._premium() }
                 </View>
-
-
         );
     }
 }
