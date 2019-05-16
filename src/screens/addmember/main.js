@@ -5,7 +5,7 @@ import {
 import styles from './main.styles'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
-import rooms from './rooms';
+import RoomCard from '../../components/RoomCard'
 
 const windowWidth = Dimensions.get('window').width;
 styles.roleColor = "#ff0000";
@@ -190,12 +190,8 @@ export default class AddMember extends Component {
                 data={this.state.roomdata}
                 numColumns={2}
                 renderItem={({item, index}) => (
-                  <Image
-                    style={{ width: (windowWidth/2), height: 80 }}
-                    //source={{uri:'../../assets/sun.png'}}
-                    source={rooms[item.room].url}
-                    resizeMode="contain"
-                  />
+                  <RoomCard name={item.room} type="bathroom" checked={false} />
+
                 )}
               />
         </View>

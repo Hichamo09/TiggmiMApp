@@ -124,7 +124,7 @@ export default class Rooms extends Component {
 
     componentDidMount () {
       this.props.getRooms();
-      let roomsLength = this.state.carouselItems[0].rooms.length;
+      let roomsLength = this.props.rooms.length;
       console.log(roomsLength)
       this.setState({roomsLength});
     }
@@ -153,15 +153,15 @@ export default class Rooms extends Component {
         return (
             <View style={{ height: 200, paddingTop: 20,}}>
                 <Carousel
-                    data={this.state.carouselItems}
+                    data={this.props.rooms}
                     sliderWidth={windowWidth}
                     itemWidth={windowWidth}
                     renderItem={this._renderItem}
                     onSnapToItem = { (index) => {
                         this.setState({activeIndex:index})
-                        this.setState({myText: this.state.carouselItems[index].title})
+                        this.setState({myText: this.props.rooms[index].title})
 
-                        let roomsLength = this.state.carouselItems[index].rooms.length;
+                        let roomsLength = this.props.rooms.length;
                         console.log(roomsLength)
                         this.setState({roomsLength});
                     }}
@@ -177,10 +177,11 @@ export default class Rooms extends Component {
     }
 
     _pagination = () => {
-        const { carouselItems, activeIndex } = this.state;
+        const { activeIndex } = this.state;
+        const { rooms } = this.props;
         return (
             <Pagination
-                dotsLength={carouselItems.length}
+                dotsLength={rooms.length}
                 activeDotIndex={activeIndex}
                 containerStyle={{ backgroundColor: '#FFF', }}
                 dotStyle={{
@@ -198,13 +199,13 @@ export default class Rooms extends Component {
         );
     }
     _renderRoomDetails = () => {
-        return <RoomDetailsComponent roomsLength={this.state.roomsLength} carouselItem={this.state.carouselItems[this.state.activeIndex]} />
+        return <RoomDetailsComponent roomsLength={this.state.roomsLength} carouselItem={this.props.rooms[this.state.activeIndex]} />
 
     }
 
     _premium = () => {
         return (
-            <PremiumComponent premium={this.state.carouselItems[this.state.activeIndex].premium} temp={this.state.carouselItems[this.state.activeIndex].temp} />
+            <PremiumComponent premium={this.props.rooms[this.state.activeIndex].premium} temp={this.props.rooms[this.state.activeIndex].temp} />
         )
     }
     render() {
@@ -213,8 +214,6 @@ export default class Rooms extends Component {
                     { this._renderTitle() }
                     { this._renderSlider() }
                     { this._pagination() }
-                    { this._renderRoomDetails() }
-                    { this._premium() }
                 </View>
         );
     }

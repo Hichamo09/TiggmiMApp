@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { rooms } from '../config/rooms'
 
 // IDEA: convert firebase response to array
 export const _objToArray = (obj) => {
@@ -17,4 +18,12 @@ export const _objToArray = (obj) => {
 export const _notificationTime = (time) => {
   time = moment(time).fromNow();
   return time
+}
+
+
+export const _getRoomImage = (type) => {
+  let room = rooms.find((x) => {
+    return x.type === type
+  })
+  return room.url
 }
