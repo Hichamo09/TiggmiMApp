@@ -3,7 +3,8 @@ import {
   View,
   Text,
   StyleSheet,
-  Image
+  Image,
+  TouchableOpacity
 } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
@@ -12,37 +13,49 @@ import { _getRoomImage } from '../utils/_helpers'
 
 
 export default class RoomCard extends Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      checked: false
+    }
+  }
   render() {
     const { container, card, roomImage, roomDetails, roomTitle,
       roomAccess, roomAccessText, roomAccessImg, roomAccessImgContainer, checked
     } = styles;
 
     return (
-      <View style={this.props.checked ? {...container, borderColor: "#ccc", borderWidth: 4} : container}>
-        <View style={card}>
-          <Image style={roomImage} source={_getRoomImage(this.props.type)}/>
-          <View style={roomDetails}>
-            <View style={roomTitle}>
-              <Text>{this.props.name}</Text>
-            </View>
-            <View style={roomAccess}>
-              <Text style={roomAccessText}>Access: </Text>
-              <View style={roomAccessImgContainer} >
-                <Image style={{...roomAccessImg}} source={require('../assets/light-room.png')}/>
-                <Image style={{...roomAccessImg}} source={require('../assets/window-room.png')}/>
-                <Image style={roomAccessImg} source={require('../assets/temperature.png')}/>
+      <View style={this.state.checked ? {...container, borderColor: "#ccc", borderWidth: 4} : container}>
+        <TouchableOpacity onPress={() => {
+          this.setState({checked: !this.state.checked})
+          this.props.addRemoveRoom(this.props.id)
+        }}>
+          <View style={card}>
+            <Image style={roomImage} source={_getRoomImage(this.props.type)}/>
+            <View style={roomDetails}>
+              <View style={roomTitle}>
+                <Text>{this.props.name}</Text>
+              </View>
+              <View style={roomAccess}>
+                <Text style={roomAccessText}>Access: </Text>
+                <View style={roomAccessImgContainer} >
+                  <Image style={{...roomAccessImg}} source={require('../assets/light-room.png')}/>
+                  <Image style={{...roomAccessImg}} source={require('../assets/window-room.png')}/>
+                  <Image style={roomAccessImg} source={require('../assets/temperature.png')}/>
+                </View>
               </View>
             </View>
-          </View>
-          {
-            this.props.checked ?
-            <View style={checked}>
-              <Feather name='check' size={28} color='#3581CD'/>
-            </View>
-            : null
-          }
+            {
+              this.state.checked ?
+              <View style={checked}>
+                <Feather name='check' size={28} color='#3581CD'/>
+              </View>
+              : null
+            }
 
-        </View>
+          </View>
+        </TouchableOpacity>
       </View>
     );
   }

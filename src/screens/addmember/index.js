@@ -1,11 +1,12 @@
 import { connect } from 'react-redux';
 import { addMember } from '../../actions/MemberActions'
+import { getRooms } from '../../actions/RoomActions'
 
 
 import AddMember from './main';
 
-const mapStateToProps = () => ({
-
+const mapStateToProps = (state) => ({
+  rooms: state.room.roomsList
 })
 
-export default connect(mapStateToProps, {addMember})(AddMember)
+export default connect(mapStateToProps, {addMember, getRooms})(AddMember)

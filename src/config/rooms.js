@@ -12,7 +12,7 @@ export const rooms = [
     url: require('../assets/kitchen1.png'),
   },
   {
-    type: "Livingroom",
+    type: "livingroom",
     url: require('../assets/livingroom1.png'),
   }
 ]

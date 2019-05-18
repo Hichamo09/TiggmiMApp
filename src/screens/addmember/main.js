@@ -54,24 +54,8 @@ export default class AddMember extends Component {
         phone_number: "",
         role: "",
         gender: "",
+        selectedRooms: ["-LeXUzjl5VJgVrLoNb0_"],
         hometemp: 27,
-        roomdata: [
-          {
-            room: 'living',
-          },
-          {
-            room: 'lemines',
-          },
-          {
-            room: 'kitchen',
-          },
-          {
-            room: 'bedroom1',
-          },
-          {
-            room: 'bathroom',
-          },
-        ]
     };
   }
 
@@ -79,6 +63,7 @@ export default class AddMember extends Component {
     this.props.navigation.setParams({
      addMember: this.addMember
     })
+    this.props.getRooms();
   }
 
   addMember = () => {
@@ -86,8 +71,24 @@ export default class AddMember extends Component {
       full_name: this.state.full_name,
       phone_number: this.state.phone_number,
       gender: this.state.gender,
-      role: this.state.role
+      role: this.state.role,
+      rooms: this.state.selectedRooms
     })
+  }
+
+  addRemoveRoom = (id) => {
+    let index = this.state.selectedRooms.findIndex(x => x === id);
+    if (index > -1) {
+      this.state.selectedRooms
+      return this.setState({selectedRooms: this.state.selectedRooms.splice(index, 1)})
+    }
+    this.setState({selectedRooms: [...this.state.selectedRooms, id]})
+  }
+
+  checkedRoom = (id) => {
+    let status = this.state.selectedRooms.includes(id);
+    if (status) return true;
+    return false
   }
 
   render () {
@@ -187,10 +188,16 @@ export default class AddMember extends Component {
         <View style={styles.List}>
             <Text style={styles.titleAccess}>Access:</Text>
               <FlatList
-                data={this.state.roomdata}
+                data={this.props.rooms}
                 numColumns={2}
                 renderItem={({item, index}) => (
-                  <RoomCard name={item.room} type="bathroom" checked={false} />
+                  <RoomCard
+                    name={item.title}
+                    type={item.type}
+                    id={item.id}
+                    checked={this.checkedRoom(item.id)}
+                    addRemoveRoom={this.addRemoveRoom}
+                  />
 
                 )}
               />
