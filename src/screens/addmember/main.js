@@ -54,8 +54,9 @@ export default class AddMember extends Component {
         phone_number: "",
         role: "",
         gender: "",
-        selectedRooms: ["-LeXUzjl5VJgVrLoNb0_"],
+        selectedRooms: [],
         hometemp: 27,
+        editMode: false
     };
   }
 
@@ -64,16 +65,36 @@ export default class AddMember extends Component {
      addMember: this.addMember
     })
     this.props.getRooms();
+    //if edit screen
+    if (this.props.navigation.state.params) {
+      if (this.props.navigation.state.params.hasOwnProperty('member')) {
+        const { full_name, phone_number, role, gender, rooms, id} = this.props.navigation.state.params.member
+        this.setState({
+          full_name,
+          phone_number,
+          role,
+          gender,
+          room_id: id,
+          selectedRooms: rooms,
+          editMode: true
+        })
+      }
+    }
   }
 
   addMember = () => {
-    this.props.addMember({
+    let data = {
       full_name: this.state.full_name,
       phone_number: this.state.phone_number,
       gender: this.state.gender,
       role: this.state.role,
-      rooms: this.state.selectedRooms
-    })
+      rooms: this.state.selectedRooms,
+    }
+    if (this.state.editMode) {
+      this.props.updateMember(this.state.room_id ,data)
+    } else {
+      this.props.addMember(data)
+    }
   }
 
   addRemoveRoom = (id) => {
@@ -143,6 +164,7 @@ export default class AddMember extends Component {
                     onChangeText={(full_name) => {this.setState({full_name})}}
                     underlineColorAndroid="transparent"
                     placeholderTextColor='#fff'
+                    value={this.state.full_name}
                 />
             </View>
             <View style={styles.searchSection}>
@@ -155,6 +177,8 @@ export default class AddMember extends Component {
                     onChangeText={(phone_number) => {this.setState({phone_number})}}
                     underlineColorAndroid="transparent"
                     placeholderTextColor='#fff'
+                    value={this.state.phone_number}
+
                 />
             </View>
         </View>
@@ -189,6 +213,7 @@ export default class AddMember extends Component {
             <Text style={styles.titleAccess}>Access:</Text>
               <FlatList
                 data={this.props.rooms}
+                extraData={this.state.selectedRooms}
                 numColumns={2}
                 renderItem={({item, index}) => (
                   <RoomCard
@@ -197,6 +222,7 @@ export default class AddMember extends Component {
                     id={item.id}
                     checked={this.checkedRoom(item.id)}
                     addRemoveRoom={this.addRemoveRoom}
+                    select={true}
                   />
 
                 )}

@@ -40,9 +40,12 @@ export default class Profile extends Component {
             </TouchableOpacity>
         ),
         headerRight: (
+          <TouchableOpacity onPress={() => navigation.navigate('AddMember', {member: navigation.state.params.member})}>
             <View style={{marginRight:12, width: 36, height: 36, backgroundColor:'#fff', alignItems: 'center', justifyContent: 'center',}}>
                 <MaterialIcons name='edit' size={30} color='#3b82cc'/>
             </View>
+          </TouchableOpacity>
+
         ),
     });
 
@@ -56,11 +59,8 @@ export default class Profile extends Component {
     }
 
     componentDidMount () {
-      console.log('-----------this.props', this.state.member);
-      console.log(this.props.rooms);
       let rooms = getRoomDetails(this.props.rooms, this.state.member.rooms);
       this.setState({rooms: rooms})
-      console.log('-------------array', rooms);
     }
 
     render() {
@@ -118,7 +118,6 @@ export default class Profile extends Component {
                             name={item.title}
                             type={item.type}
                             id={item.id}
-                            checked={true}
                           />
                         )}
                     />

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { addMember } from '../../actions/MemberActions'
+import { addMember, updateMember } from '../../actions/MemberActions'
 import { getRooms } from '../../actions/RoomActions'
 
 
@@ -9,4 +9,4 @@ const mapStateToProps = (state) => ({
   rooms: state.room.roomsList
 })
 
-export default connect(mapStateToProps, {addMember, getRooms})(AddMember)
+export default connect(mapStateToProps, {addMember, getRooms, updateMember})(AddMember)
