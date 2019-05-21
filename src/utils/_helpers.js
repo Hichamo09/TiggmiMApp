@@ -27,3 +27,14 @@ export const _getRoomImage = (type) => {
   })
   return room.url
 }
+
+export const getRoomDetails = (rooms, ids) => {
+  console.log('params', rooms, ids);
+  let arr = [];
+  for (let i = 0; i < ids.length; i++) {
+    let room = rooms.find(x => x.id === ids[i]);
+    arr.push(room);
+  }
+  console.log('-----------------------roooms details', arr);
+  return arr;
+}

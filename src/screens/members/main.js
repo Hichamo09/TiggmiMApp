@@ -60,6 +60,8 @@ export default class Members extends Component {
 
   componentDidMount () {
     this.props.getMembers();
+    this.props.getRooms();
+    
   }
 
   render () {

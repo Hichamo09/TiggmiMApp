@@ -28,8 +28,10 @@ export default class RoomCard extends Component {
     return (
       <View style={this.state.checked ? {...container, borderColor: "#ccc", borderWidth: 4} : container}>
         <TouchableOpacity onPress={() => {
-          this.setState({checked: !this.state.checked})
-          this.props.addRemoveRoom(this.props.id)
+          if (this.props.select) {
+            this.setState({checked: !this.state.checked})
+            this.props.addRemoveRoom(this.props.id)
+          }
         }}>
           <View style={card}>
             <Image style={roomImage} source={_getRoomImage(this.props.type)}/>

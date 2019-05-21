@@ -1,3 +1,8 @@
 import Profile from './main'
+import { connect } from "react-redux";
 
-export default Profile
+
+const mapStateToProps = (state) => ({
+  rooms: state.room.roomsList
+})
+export default connect(mapStateToProps, {})(Profile)

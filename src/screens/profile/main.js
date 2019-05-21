@@ -4,6 +4,10 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
+import RoomCard from '../../components/RoomCard'
+import { getRoomDetails } from '../../utils/_helpers'
+
+
 import image from '../../assets/image';
 import access from '../../assets/access';
 import styles from './main.styles';
@@ -46,8 +50,17 @@ export default class Profile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          member: this.props.navigation.state.params.member
+          member: this.props.navigation.state.params.member,
+          rooms: []
         }
+    }
+
+    componentDidMount () {
+      console.log('-----------this.props', this.state.member);
+      console.log(this.props.rooms);
+      let rooms = getRoomDetails(this.props.rooms, this.state.member.rooms);
+      this.setState({rooms: rooms})
+      console.log('-------------array', rooms);
     }
 
     render() {
@@ -97,17 +110,18 @@ export default class Profile extends Component {
             <View style={styles.accessView}>
                 <Text style={styles.accessViewLabel}>Access:</Text>
                 <View style={styles.rooms}>
-                <FlatList
-                    data={access}
-                    numColumns={2}
-                    renderItem={({item}) => (
-                    <Image
-                        style={{ width: (windowWidth/2)-30, height: 60 }}
-                        source={{uri: item.room}}
-                        resizeMode="contain"
+                    <FlatList
+                        data={this.state.rooms}
+                        numColumns={2}
+                        renderItem={({item, index}) => (
+                          <RoomCard
+                            name={item.title}
+                            type={item.type}
+                            id={item.id}
+                            checked={true}
+                          />
+                        )}
                     />
-                    )}
-                />
                 </View>
             </View>
             <View style={styles.accessView}>

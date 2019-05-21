@@ -10,6 +10,7 @@ import {
 export const checkAuth = () => {
   return (dispatch) => {
     firebase.auth().onAuthStateChanged((user) => {
+      console.log('user----', user);
       if (user) {
         dispatch({
           type: SUCCESS_LOGIN,
