@@ -30,7 +30,11 @@ export default class Cycles extends Component {
         ),
         headerRight: (
             <View style={{marginRight:12, width: 36, height: 36, backgroundColor:'#3785cd', alignItems: 'center', justifyContent: 'center', borderRadius:20, borderWidth: 1, borderColor: '#3785cd',}}>
-                <FontAwesome name='plus' size={28} color='#ffffff'/>
+                <TouchableOpacity onPress={() => {
+                  navigation.navigate('AddCycle')
+                }}>
+                  <FontAwesome name='plus' size={28} color='#ffffff'/>
+                </TouchableOpacity>
             </View>
         ),
     });
@@ -38,7 +42,7 @@ export default class Cycles extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { 
+        this.state = {
             data: [
                 {
                     name: '7am routine',
