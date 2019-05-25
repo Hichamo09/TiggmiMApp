@@ -12,6 +12,8 @@ import styles from './main.styles'
 import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import RoomCard from '../../components/RoomCard'
+import TimePicker from "react-native-24h-timepicker";
+
 
 
 
@@ -71,6 +73,73 @@ export default class AddCycle extends Component {
 
   }
 
+  onCancel() {
+    this.TimePicker.close();
+  }
+
+  onConfirm(hour, minute) {
+    this.setState({ time: `${hour}:${minute}` });
+    this.TimePicker.close();
+  }
+
+  renderSelectedRooms = (item) => {
+    console.log('--------selectedRooms', this.state.selectedRooms);
+    console.log('item', item, 'props', this.props);
+    let room = this.props.rooms.find(x => x.id === item.item);
+    return (
+      <View style={styles.roomBlock}>
+        <Text style={styles.roomTitle}>{room.title}</Text>
+        <View style={styles.roomItems}>
+          <View style={styles.itemTitle}>
+            <Text>Light</Text>
+          </View>
+          <View style={styles.itemController}>
+
+          </View>
+          <View style={{flex: 0.5, textAlign: "center", alignItems: "center"}}>
+            <Text>\</Text>
+          </View>
+
+          <View style={styles.itemStartTime}>
+            <Text style={{...styles.time, fontSize: 14}}>17:00</Text>
+          </View>
+
+          <View style={{flex: 0.5, textAlign: "center", alignItems: "center"}}>
+            <Text>\</Text>
+          </View>
+
+          <View style={styles.itemEndTime}>
+            <Text style={{...styles.time, fontSize: 14}}>17:00</Text>
+          </View>
+        </View>
+        <View style={styles.roomItems}>
+          <View style={styles.itemTitle}>
+            <Text>Shutter</Text>
+          </View>
+          <View style={styles.itemController}>
+
+          </View>
+          <View style={{flex: 0.5, textAlign: "center", alignItems: "center"}}>
+            <Text>\</Text>
+          </View>
+
+          <View style={styles.itemStartTime}>
+            <Text style={{...styles.time, fontSize: 14}}>17:00</Text>
+          </View>
+
+          <View style={{flex: 0.5, textAlign: "center", alignItems: "center"}}>
+            <Text>\</Text>
+          </View>
+
+          <View style={styles.itemEndTime}>
+            <Text style={{...styles.time, fontSize: 14}}>17:00</Text>
+          </View>
+        </View>
+      </View>
+    )
+  }
+
+
 
 
   render() {
@@ -126,70 +195,36 @@ export default class AddCycle extends Component {
               <Text style={styles.blockSubTitle}>Global Start Time</Text>
             </View>
             <View style={{flex:1, textAlign: "center", alignItems: "flex-end", marginRight: 30}}>
-              <Text style={styles.time}>17:00</Text>
+              <TouchableOpacity
+                onPress={() => this.TimePicker.open()}
+              >
+                <Text style={styles.time}>17:00</Text>
+              </TouchableOpacity>
             </View>
           </View>
 
-          <View style={styles.roomBlock}>
-            <Text style={styles.roomTitle}>Living room</Text>
-            <View style={styles.roomItems}>
-              <View style={styles.itemTitle}>
-                <Text>Light</Text>
-              </View>
-              <View style={styles.itemController}>
-
-              </View>
-              <View style={{flex: 0.5, textAlign: "center", alignItems: "center"}}>
-                <Text>\</Text>
-              </View>
-
-              <View style={styles.itemStartTime}>
-                <Text style={{...styles.time, fontSize: 14}}>17:00</Text>
-              </View>
-
-              <View style={{flex: 0.5, textAlign: "center", alignItems: "center"}}>
-                <Text>\</Text>
-              </View>
-
-              <View style={styles.itemEndTime}>
-                <Text style={{...styles.time, fontSize: 14}}>17:00</Text>
-              </View>
-            </View>
-            <View style={styles.roomItems}>
-              <View style={styles.itemTitle}>
-                <Text>Shutter</Text>
-              </View>
-              <View style={styles.itemController}>
-
-              </View>
-              <View style={{flex: 0.5, textAlign: "center", alignItems: "center"}}>
-                <Text>\</Text>
-              </View>
-
-              <View style={styles.itemStartTime}>
-                <Text style={{...styles.time, fontSize: 14}}>17:00</Text>
-              </View>
-
-              <View style={{flex: 0.5, textAlign: "center", alignItems: "center"}}>
-                <Text>\</Text>
-              </View>
-
-              <View style={styles.itemEndTime}>
-                <Text style={{...styles.time, fontSize: 14}}>17:00</Text>
-              </View>
-            </View>
-
-          </View>
+          <FlatList
+            data={this.state.selectedRooms}
+            renderItem={this.renderSelectedRooms}
+            extraData={this.state.selectedRooms}
+          />
 
 
           <View  style={styles.blockRow}>
             <View style={{flex:1}}>
-              <Text style={styles.blockSubTitle}>Global Start Time</Text>
+              <Text style={styles.blockSubTitle}>Global End Time</Text>
             </View>
             <View style={{flex:1, textAlign: "center", alignItems: "flex-end", marginRight: 30}}>
               <Text style={styles.time}>7:00</Text>
             </View>
           </View>
+          <TimePicker
+            ref={ref => {
+              this.TimePicker = ref;
+            }}
+            onCancel={() => this.onCancel()}
+            onConfirm={(hour, minute) => this.onConfirm(hour, minute)}
+          />
 
 
         </View>
