@@ -116,6 +116,84 @@ export default class AddCycle extends Component {
           />
         </View>
 
+        <View style={{...styles.block, marginBottom: 50}}>
+          <View >
+            <Text style={styles.blockTitle}>Schedule:</Text>
+          </View>
+
+          <View  style={styles.blockRow}>
+            <View style={{flex:1}}>
+              <Text style={styles.blockSubTitle}>Global Start Time</Text>
+            </View>
+            <View style={{flex:1, textAlign: "center", alignItems: "flex-end", marginRight: 30}}>
+              <Text style={styles.time}>17:00</Text>
+            </View>
+          </View>
+
+          <View style={styles.roomBlock}>
+            <Text style={styles.roomTitle}>Living room</Text>
+            <View style={styles.roomItems}>
+              <View style={styles.itemTitle}>
+                <Text>Light</Text>
+              </View>
+              <View style={styles.itemController}>
+
+              </View>
+              <View style={{flex: 0.5, textAlign: "center", alignItems: "center"}}>
+                <Text>\</Text>
+              </View>
+
+              <View style={styles.itemStartTime}>
+                <Text style={{...styles.time, fontSize: 14}}>17:00</Text>
+              </View>
+
+              <View style={{flex: 0.5, textAlign: "center", alignItems: "center"}}>
+                <Text>\</Text>
+              </View>
+
+              <View style={styles.itemEndTime}>
+                <Text style={{...styles.time, fontSize: 14}}>17:00</Text>
+              </View>
+            </View>
+            <View style={styles.roomItems}>
+              <View style={styles.itemTitle}>
+                <Text>Shutter</Text>
+              </View>
+              <View style={styles.itemController}>
+
+              </View>
+              <View style={{flex: 0.5, textAlign: "center", alignItems: "center"}}>
+                <Text>\</Text>
+              </View>
+
+              <View style={styles.itemStartTime}>
+                <Text style={{...styles.time, fontSize: 14}}>17:00</Text>
+              </View>
+
+              <View style={{flex: 0.5, textAlign: "center", alignItems: "center"}}>
+                <Text>\</Text>
+              </View>
+
+              <View style={styles.itemEndTime}>
+                <Text style={{...styles.time, fontSize: 14}}>17:00</Text>
+              </View>
+            </View>
+
+          </View>
+
+
+          <View  style={styles.blockRow}>
+            <View style={{flex:1}}>
+              <Text style={styles.blockSubTitle}>Global Start Time</Text>
+            </View>
+            <View style={{flex:1, textAlign: "center", alignItems: "flex-end", marginRight: 30}}>
+              <Text style={styles.time}>7:00</Text>
+            </View>
+          </View>
+
+
+        </View>
+
 
       </ScrollView>
     );

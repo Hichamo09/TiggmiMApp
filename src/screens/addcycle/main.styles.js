@@ -49,12 +49,62 @@ const styles = StyleSheet.create({
   },
   block: {
     marginTop: 10,
-    paddingTop: 10
+    paddingTop: 10,
+    // flexDirection: "row"
+  },
+  blockRow: {
+    flexDirection: "row"
   },
   blockTitle: {
     fontSize: 20,
-    color: "black"
-  }
+    color: "black",
+    marginLeft: 30
+  },
+  blockSubTitle: {
+    fontSize: 18,
+    color: "#2587af",
+  },
+  time: {
+    backgroundColor: "#2587af",
+    fontSize: 18,
+    width: 50,
+    textAlign: "center",
+    margin: 2,
+    color: "#fff"
+  },
+  roomBlock: {
+    marginLeft: 5,
+
+  },
+  roomTitle: {
+    fontSize: 17,
+    color: "#2587af",
+  },
+  roomItems: {
+    flexDirection: "row",
+    marginTop: 5,
+    marginBottom: 5,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  itemTitle: {
+    flex: 2,
+  },
+  itemController: {
+    flex: 1,
+    backgroundColor: "#2587af",
+    padding: 3,
+    borderRadius: 5,
+    height: 15,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  itemStartTime: {
+    flex: 1
+  },
+  itemEndTime: {
+    flex: 1
+  },
 });
 
 
