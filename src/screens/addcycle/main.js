@@ -43,7 +43,7 @@ export default class AddCycle extends Component {
       <View style={{marginRight:12, width: 36, height: 36, backgroundColor:'#999999', alignItems: 'center', justifyContent: 'center', borderRadius:20, borderWidth: 1, borderColor: '#999999',}}>
         <TouchableOpacity
           onPress={() => {
-            console.log('save');
+            navigation.state.params.addCycle();
           }}
         >
           <Feather name='check' size={28} color='#ffffff'/>
@@ -55,21 +55,60 @@ export default class AddCycle extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      selectedRooms: []
+      selectedRooms: [],
+      title: "",
+      selectedTime: "",
+      globalStartTime: "07:00",
+      globalEndTime: "20:00",
+      roomsItemsTime: [
+        {}
+      ],
+      timePickerValue: "",
+      refresh: false
     }
   }
 
   componentDidMount () {
+    this.props.navigation.setParams({
+     addCycle: this.addCycle
+    })
     this.props.getRooms()
   }
 
-  addRemoveRoom = (id) => {
-    let index = this.state.selectedRooms.findIndex(x => x === id);
-    if (index > -1) {
-      this.state.selectedRooms
-      return this.setState({selectedRooms: this.state.selectedRooms.splice(index, 1)})
+  addCycle = () => {
+    const { title, selectedRooms } = this.state
+    let data = {
+      title,
+      selectedRooms,
     }
-    this.setState({selectedRooms: [...this.state.selectedRooms, id]})
+
+    this.props.addCycle(data)
+  }
+
+  addRemoveRoom = (id) => {
+    console.log('this.state.selectedRooms', this.state.selectedRooms, "id", id);
+    // let index = this.state.selectedRooms.findIndex(x => x === id);
+    let index = this.state.selectedRooms.indexOf(id);
+    console.log('----------index', index);
+    if (index > -1) {
+      // this.state.selectedRooms
+      let arr = this.state.selectedRooms.filter(x => x !== id);
+      console.log('arr-', arr);
+      return this.setState({selectedRooms: arr})
+    }
+    this.setState({selectedRooms: [...this.state.selectedRooms, id],
+      roomsItemsTime: [...this.state.roomsItemsTime, {
+        id: id,
+        item1: {
+          startTime: "7:00",
+          endTime: "7:00"
+        },
+        item2: {
+          startTime: "17:00",
+          endTime: "17:00"
+        }
+      }]
+    })
 
   }
 
@@ -78,13 +117,22 @@ export default class AddCycle extends Component {
   }
 
   onConfirm(hour, minute) {
-    this.setState({ time: `${hour}:${minute}` });
+    switch (this.state.timePickerValue) {
+      case "globalStartTime":
+      console.log('globalEndTime');
+        this.setState({globalStartTime: `${hour}:${minute}`})
+        break;
+      case "globalEndTime":
+      console.log('globalEndTime');
+        this.setState({globalEndTime: `${hour}:${minute}`})
+        break;
+      default:
+        console.log('default');
+    }
     this.TimePicker.close();
   }
 
   renderSelectedRooms = (item) => {
-    console.log('--------selectedRooms', this.state.selectedRooms);
-    console.log('item', item, 'props', this.props);
     let room = this.props.rooms.find(x => x.id === item.item);
     return (
       <View style={styles.roomBlock}>
@@ -101,7 +149,16 @@ export default class AddCycle extends Component {
           </View>
 
           <View style={styles.itemStartTime}>
-            <Text style={{...styles.time, fontSize: 14}}>17:00</Text>
+            <TouchableOpacity
+              onPress={() => {
+                this.setState({timePickerValue: "globalStartTime"})
+                this.TimePicker.open()
+              }}
+            >
+              <Text style={{...styles.time, fontSize: 14}}>
+                7:00
+              </Text>
+            </TouchableOpacity>
           </View>
 
           <View style={{flex: 0.5, textAlign: "center", alignItems: "center"}}>
@@ -160,6 +217,8 @@ export default class AddCycle extends Component {
         <View style={styles.topView}>
           <TextInput
             style={styles.titleInput}
+            value={this.state.title}
+            onChangeText={title => this.setState({title}) }
             placeholder="TITLE"
           />
         </View>
@@ -196,9 +255,12 @@ export default class AddCycle extends Component {
             </View>
             <View style={{flex:1, textAlign: "center", alignItems: "flex-end", marginRight: 30}}>
               <TouchableOpacity
-                onPress={() => this.TimePicker.open()}
+                onPress={() => {
+                  this.setState({timePickerValue: "globalStartTime"})
+                  this.TimePicker.open()
+                }}
               >
-                <Text style={styles.time}>17:00</Text>
+                <Text style={styles.time}>{this.state.globalStartTime}</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -206,7 +268,7 @@ export default class AddCycle extends Component {
           <FlatList
             data={this.state.selectedRooms}
             renderItem={this.renderSelectedRooms}
-            extraData={this.state.selectedRooms}
+            extraData={this.state.refresh}
           />
 
 
@@ -215,7 +277,14 @@ export default class AddCycle extends Component {
               <Text style={styles.blockSubTitle}>Global End Time</Text>
             </View>
             <View style={{flex:1, textAlign: "center", alignItems: "flex-end", marginRight: 30}}>
-              <Text style={styles.time}>7:00</Text>
+            <TouchableOpacity
+            onPress={() => {
+              this.setState({timePickerValue: "globalEndTime"})
+              this.TimePicker.open()
+            }}
+            >
+              <Text style={styles.time}>{this.state.globalEndTime}</Text>
+            </TouchableOpacity>
             </View>
           </View>
           <TimePicker
