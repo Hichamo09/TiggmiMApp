@@ -4,6 +4,7 @@ import AuthReducer from './AuthReducers';
 import MemberReducer from './MemberReducers';
 import NotificationReducer from './NotificationReducers';
 import RoomReducer from './RoomReducers';
+import CycleReducer from './CycleReducers';
 
 
 export default combineReducers({
@@ -12,4 +13,5 @@ export default combineReducers({
   member: MemberReducer,
   notification: NotificationReducer,
   room: RoomReducer,
+  cycle: CycleReducer
 })

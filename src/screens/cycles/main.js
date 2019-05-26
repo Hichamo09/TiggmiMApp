@@ -43,22 +43,20 @@ export default class Cycles extends Component {
         super(props);
 
         this.state = {
-            data: [
-                {
-                    name: '7am routine',
-                },
-                {
-                    name: 'Week-end',
-                },
-            ]
         };
+    }
+
+    componentDidMount() {
+      this.props.getCycle()
     }
 
     renderDetail = (item) => {
         return (
             <View style={styles.cycle}>
                 <View style={styles.singleCycle}>
-                    <Text style={styles.cycleText}>{item.name}</Text>
+                  <TouchableOpacity>
+                    <Text style={styles.cycleText}>{item.title}</Text>
+                  </TouchableOpacity>
                 </View>
             </View>
         )
@@ -71,7 +69,7 @@ export default class Cycles extends Component {
                     <Text style={styles.titleText}>Cycles</Text>
                     <View style={styles.List}>
                         <FlatList
-                            data={this.state.data}
+                            data={this.props.cycles}
                             numColumns={2}
                             renderItem={({item, index}) => (
                                 this.renderDetail(item)
