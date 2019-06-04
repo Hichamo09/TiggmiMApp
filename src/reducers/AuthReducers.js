@@ -25,8 +25,9 @@ export default (state=INITIAL_STATE, action) => {
       return {
         ...state,
         currentUser: {
-          uid: action.payload.uid,
-          phone_number: action.payload.phoneNumber
+          uid: action.payload.user.uid,
+          phone_number: action.payload.user.phoneNumber,
+          token: action.payload.token
         },
         errorMessage: ""
       }

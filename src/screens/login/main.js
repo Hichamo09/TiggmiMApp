@@ -32,7 +32,6 @@ class Login extends Component {
   _handleResponse = data => {
     let query = url.parse(data.url, true).query;
 
-
     if (query.hasOwnProperty('token')) {
       this.setState({ showModal: false });
       this.props.signUp(this.state.phone_number, query.token);

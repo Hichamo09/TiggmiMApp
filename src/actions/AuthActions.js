@@ -10,14 +10,21 @@ import {
 export const checkAuth = () => {
   return (dispatch) => {
     firebase.auth().onAuthStateChanged((user) => {
+
       console.log('user----', user);
       if (user) {
-        dispatch({
-          type: SUCCESS_LOGIN,
-          payload: user
-        })
+        firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+          console.log('idToken', idToken);
+          dispatch({
+            type: SUCCESS_LOGIN,
+            payload: {user: user, token: idToken}
+          })
+        }).catch(function(error) {
+          console.log('error', error);
+        });
       }else {
-        NavigationService.navigate('Home')
+        console.log('nulllllll user');
+        NavigationService.navigate('Login')
       }
     })
   }
@@ -39,6 +46,7 @@ export const signUp = (number, captchaToken) => {
       })
     })
     .catch((err) => {
+      console.log('----------err', err);
       loginFailed(dispatch, "Oops! something is wrong")
     });
   }
