@@ -22,7 +22,6 @@ export const addCycle = (data) => {
 
 export const getCycle = () => {
   return (dispatch, getState) => {
-    console.log('--------------');
     let userId = getState().auth.currentUser.uid;
     getData('users/' + userId + '/cycles')
     .then((result) => {
@@ -30,6 +29,20 @@ export const getCycle = () => {
         type: CYCLES_LIST,
         payload: _objToArray(result)
       })
+    })
+    .catch((err) => {
+      console.log('----------err', err);
+    });
+  }
+}
+
+
+export const updateCycle = (id, data) => {
+  return (dispatch, getState) => {
+    let userId = getState().auth.currentUser.uid;
+    updateData(`users/${userId}/cycles/${id}`, data)
+    .then((result) => {
+      NavigationService.navigate('Cycles');
     })
     .catch((err) => {
       console.log('----------err', err);

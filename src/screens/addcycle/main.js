@@ -66,7 +66,8 @@ export default class AddCycle extends Component {
       timePickerValue: "",
       refresh: false,
       selectedRoom: "",
-      selectedOption: ""
+      selectedOption: "",
+      id: ""
     }
   }
 
@@ -74,7 +75,22 @@ export default class AddCycle extends Component {
     this.props.navigation.setParams({
      addCycle: this.addCycle
     })
-    this.props.getRooms()
+    //edit mode
+    if (this.props.navigation.state.params) {
+      if (this.props.navigation.state.params.hasOwnProperty('cycle')) {
+        const { title, selectedRooms, globalStartTime, globalEndTime, roomsItemsTime, id} = this.props.navigation.state.params.cycle
+        roomsItemsTimeEdited = roomsItemsTime.filter(item => item);
+        this.setState({
+          cycleId: id, title, selectedRooms, globalStartTime, globalEndTime, roomsItemsTime: roomsItemsTimeEdited, editMode: true, refresh: !this.state.refresh
+        })
+      }
+    }
+  }
+
+  checkedRoom = (id) => {
+    let status = this.state.selectedRooms.includes(id);
+    if (status) return true;
+    return false
   }
 
   addCycle = () => {
@@ -87,7 +103,12 @@ export default class AddCycle extends Component {
       roomsItemsTime
     }
 
-    this.props.addCycle(data)
+    if (this.state.editMode) {
+      this.props.updateCycle(this.state.cycleId ,data)
+    }else {
+      this.props.addCycle(data)
+    }
+
   }
 
   addRemoveRoom = (id) => {
@@ -96,7 +117,6 @@ export default class AddCycle extends Component {
     if (index > -1) {
       // this.state.selectedRooms
       let arr = this.state.selectedRooms.filter(x => x !== id);
-      console.log('arr-', arr);
       return this.setState({selectedRooms: arr})
     }
     this.setState({selectedRooms: [...this.state.selectedRooms, id],
@@ -122,19 +142,15 @@ export default class AddCycle extends Component {
   onConfirm(hour, minute) {
     switch (this.state.timePickerValue) {
       case "globalStartTime":
-      console.log('globalEndTime');
         this.setState({globalStartTime: `${hour}:${minute}`})
         break;
       case "globalEndTime":
-      console.log('globalEndTime');
         this.setState({globalEndTime: `${hour}:${minute}`})
         break;
       case "roomTime":
         let arr = Object.assign([], this.state.roomsItemsTime);
         let obj = arr.find(x => x.id === this.state.selectedRoom);
         obj[this.state.selectedOption][this.state.timeType] = `${hour}:${minute}`
-        console.log('-------------obj', obj);
-        console.log('--------------arr', arr);
         this.setState({
           roomsItemsTime: arr,
           refresh: !this.state.refresh
@@ -269,21 +285,26 @@ export default class AddCycle extends Component {
           <View >
             <Text style={styles.blockTitle}>Peripherals:</Text>
           </View>
-          <FlatList
-            data={this.props.rooms}
-            extraData={this.state.selectedRooms}
-            numColumns={2}
-            renderItem={({item, index}) => (
-              <RoomCard
-                name={item.title}
-                type={item.type}
-                addRemoveRoom={this.addRemoveRoom}
-                id={item.id}
-                select={true}
-              />
+          {
+            this.state.selectedRooms.length > 1 ?
+            <FlatList
+              data={this.props.rooms}
+              extraData={this.state.refresh}
+              numColumns={2}
+              renderItem={({item, index}) => (
+                <RoomCard
+                  name={item.title}
+                  type={item.type}
+                  addRemoveRoom={this.addRemoveRoom}
+                  checked={this.checkedRoom(item.id)}
+                  id={item.id}
+                  select={true}
+                />
 
-            )}
-          />
+              )}
+            />
+            : null
+          }
         </View>
 
         <View style={{...styles.block, marginBottom: 50}}>

@@ -48,13 +48,17 @@ export default class Cycles extends Component {
 
     componentDidMount() {
       this.props.getCycle()
+      this.props.getRooms()
+      
     }
 
     renderDetail = (item) => {
         return (
             <View style={styles.cycle}>
                 <View style={styles.singleCycle}>
-                  <TouchableOpacity>
+                  <TouchableOpacity onPress={() => {
+                    this.props.navigation.navigate('AddCycle', {cycle: item})
+                  }}>
                     <Text style={styles.cycleText}>{item.title}</Text>
                   </TouchableOpacity>
                 </View>

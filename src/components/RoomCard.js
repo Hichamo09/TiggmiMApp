@@ -20,6 +20,11 @@ export default class RoomCard extends Component {
       checked: this.props.checked
     }
   }
+
+  componentDidMount () {
+    this.setState({checked: this.props.checked})
+  }
+
   render() {
     const { container, card, roomImage, roomDetails, roomTitle,
       roomAccess, roomAccessText, roomAccessImg, roomAccessImgContainer, checked
