@@ -8,13 +8,18 @@ const windowWidth = Dimensions.get('window').width;
 export default class Room extends Component {
     render() {
         return (
-            <View style={{flex:1,justifyContent:'center',alignItems:'center'}}> 
+            <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+              {
+                this.props.url ?
                 <Image
-                    source={this.props.url}
-                    style={{width: windowWidth, height: 180, resizeMode: 'stretch'}}
-                />                
+                source={this.props.url}
+                style={{width: windowWidth, height: 180, resizeMode: 'stretch'}}
+                />
+                : null               
+
+              }
             </View>
-                    
+
         );
     }
 }

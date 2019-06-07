@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Dimensions, TouchableOpacity, Image } from 'react-native';
+import { View, Text, Dimensions, TouchableOpacity, Image, ScrollView } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
@@ -8,6 +8,8 @@ import Room from './roomComponent';
 import RoomDetailsComponent from './roomDetailsComponent';
 import PremiumComponent from './PremiumComponent';
 import styles from './main.styles';
+import { _getRoomImage } from '../../utils/_helpers'
+
 
 
 
@@ -172,8 +174,8 @@ export default class Rooms extends Component {
         );
     }
 
-    _renderItem({item,index}){
-        return <Room url={item.url} />;
+    _renderItem = () => {
+        return <Room url={_getRoomImage(this.props.rooms[this.state.activeIndex].type)} />;
     }
 
     _pagination = () => {
@@ -199,7 +201,9 @@ export default class Rooms extends Component {
         );
     }
     _renderRoomDetails = () => {
-        return <RoomDetailsComponent roomsLength={this.state.roomsLength} carouselItem={this.props.rooms[this.state.activeIndex]} />
+      console.log('-------------render', this.state.roomsLength, "this.props.rooms", this.props.rooms, this.state.activeIndex);
+      console.log('this.props.rooms[this.state.activeIndex]', this.props.rooms[this.state.activeIndex]);
+        return <RoomDetailsComponent carouselItem={this.props.rooms[this.state.activeIndex]} />
 
     }
 
@@ -210,11 +214,12 @@ export default class Rooms extends Component {
     }
     render() {
         return (
-                <View style={styles.container}>
+                <ScrollView style={styles.container}>
                     { this._renderTitle() }
                     { this._renderSlider() }
                     { this._pagination() }
-                </View>
+                    { this._renderRoomDetails()}
+                </ScrollView>
         );
     }
 }
