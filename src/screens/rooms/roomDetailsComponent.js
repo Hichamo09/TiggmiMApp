@@ -48,19 +48,25 @@ export default class RoomDetailsComponent extends Component {
                   numColumns={2}
                 />
 
-                <TouchableOpacity onPress={() => {
-                  this.setState({lightValue: !this.state.lightValue})
-                }}>
-                  <View style={styles.lightContainer}>
-                    <View style={{...styles.lightValue, height: this.state.lightValue ? "100%" : 0}}>
-                    </View>
+                {
+                  this.props.room ?
+                    this.props.room.pins.find(x => x.type === "light") ?
+                    <TouchableOpacity onPress={() => {
+                      this.setState({lightValue: !this.state.lightValue})
+                    }}>
+                      <View style={styles.lightContainer}>
+                        <View style={{...styles.lightValue, height: this.state.lightValue ? "100%" : 0}}>
+                        </View>
+                          <Image
+                            source={require('../../assets/light-room.png')}
+                            style={{width: 30, position: "absolute", bottom: 20, zIndex: 1}}
+                          />
+                      </View>
+                    </TouchableOpacity>
+                    : null
+                    : null
+                }
 
-                      <Image
-                        source={require('../../assets/light-room.png')}
-                        style={{width: 30, position: "absolute", bottom: 20, zIndex: 1}}
-                      />
-                  </View>
-                </TouchableOpacity>
 
               </View>
 

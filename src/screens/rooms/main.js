@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Dimensions, TouchableOpacity, Image, ScrollView } from 'react-native';
+import { View, Text, Dimensions, TouchableOpacity, Image, ScrollView, TextInput } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
@@ -131,6 +131,15 @@ export default class Rooms extends Component {
       this.setState({roomsLength});
     }
 
+    updateRoom = () => {
+      this.setState({editMode: false})
+      console.log('this.room', this.props.rooms[this.state.activeIndex]);
+      let room = Object.assign({}, this.props.rooms[this.state.activeIndex]);
+      room.title = this.state.myText;
+      console.log('---------room', room);
+      this.props.updateRoom(room.id, room)
+    }
+
     _renderTitle = () => {
         return (
             <View style={styles.nameHeader}>
@@ -140,11 +149,40 @@ export default class Rooms extends Component {
                     </View>
                 </TouchableOpacity>
                 <View style={styles.topName}>
-                    <Text style={styles.titleText}>{this.state.myText}</Text>
+                  {
+                    this.state.editMode ?
+                      <TextInput
+                        placeholder={"room title"}
+                        value={this.state.myText}
+                        style={styles.input}
+                        onChangeText={(myText) => {this.setState({myText})}}
+                      />
+                    :
+                      <Text style={styles.titleText}>{this.state.myText}</Text>
+
+                  }
+
                 </View>
                 <View>
                     <View style={styles.topEditButton}>
+                    {
+                      this.state.editMode ?
+                      <TouchableOpacity onPress={() => {
+                        this.updateRoom()
+                      }}>
+                        <MaterialIcons name="check" size={24} color="#2B7CD9" />
+
+                      </TouchableOpacity>
+                      :
+                      <TouchableOpacity onPress={() => {
+                        this.setState({editMode: true})
+                      }}>
                         <MaterialIcons name="edit" size={24} color="#2B7CD9" />
+
+                      </TouchableOpacity>
+                    }
+
+
                     </View>
                 </View>
             </View>

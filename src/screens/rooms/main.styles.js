@@ -65,6 +65,16 @@ const styles = StyleSheet.create({
         height: 60,
         resizeMode: 'stretch'
     },
+    input: {
+        width: 100,
+        paddingTop: 5,
+        paddingRight: 5,
+        paddingBottom: 5,
+        paddingLeft: 0,
+        backgroundColor: '#b9dcef',
+        fontSize: 18,
+        textAlign: "center"
+    },
     shutterContainer: {
       height: 100,
       backgroundColor: "#ccc",

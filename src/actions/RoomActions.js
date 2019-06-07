@@ -1,5 +1,6 @@
-import { getData, storeData} from '../utils/_firebase';
+import { getData, storeData, updateData} from '../utils/_firebase';
 import { _objToArray } from '../utils/_helpers';
+import NavigationService from '../routes/navigationService';
 import {
   ROOMS_LIST
 } from './types';
@@ -50,4 +51,20 @@ export const addRoom = () => {
       console.log('-------err', err);
     });
   };
+}
+
+
+export const updateRoom = (id, data) => {
+  return (dispatch, getState) => {
+    let userId = getState().auth.currentUser.uid;
+    console.log('----------data', data, id);
+    updateData(`users/${userId}/rooms/${id}`, data)
+    .then((result) => {
+      console.log('result', result);
+      NavigationService.navigate('Rooms');
+    })
+    .catch((err) => {
+      console.log('----------err', err);
+    });
+  }
 }
