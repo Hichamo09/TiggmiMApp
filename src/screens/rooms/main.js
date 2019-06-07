@@ -203,7 +203,7 @@ export default class Rooms extends Component {
     _renderRoomDetails = () => {
       console.log('-------------render', this.state.roomsLength, "this.props.rooms", this.props.rooms, this.state.activeIndex);
       console.log('this.props.rooms[this.state.activeIndex]', this.props.rooms[this.state.activeIndex]);
-        return <RoomDetailsComponent carouselItem={this.props.rooms[this.state.activeIndex]} />
+        return <RoomDetailsComponent room={this.props.rooms[this.state.activeIndex]} />
 
     }
 

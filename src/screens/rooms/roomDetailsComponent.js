@@ -1,87 +1,68 @@
 import React, { Component } from 'react';
-import { View, Text, Dimensions, TouchableOpacity, Image, ScrollView } from 'react-native';
+import { View, Text, Dimensions, TouchableOpacity, Image, ScrollView, FlatList } from 'react-native';
 import styles from './main.styles';
 const windowWidth = Dimensions.get('window').width;
 
 export default class RoomDetailsComponent extends Component {
     constructor(props){
         super(props)
+        this.state = {
+          shutterValue: 50,
+          lightValue: 0
+        }
     }
 
-    render() {
-        let rooms = [];
-        // let shutterPins = this.props.carouselItem ? this.props.carouselItem.pins.filter(x => x.type === "shutter") : []
-        let length = 1
-        {
-          for(let i = 0; i < length; i++){
-            if(length == 1){
-                rooms.push(
-                    <View>
-                        <View style={styles.shutterContainer}>
-                          <View style={styles.shutterValue}>
-                          </View>
-                        </View>
-                    </View>
-                )
-            }else{
-                rooms.push(
-                    <View>
-                        <Image
-                            source={this.props.carouselItem.rooms[i].room}
-                            style={styles.window}
-                        />
-                    </View>
-                )
-            }
 
-        }
-      }
+    renderShutters = () => {
+      return (
+        <View style={styles.shutterContainer}>
+          <View style={{...styles.shutterValue, height: this.state.shutterValue}}>
+          </View>
+          <Image
+            source={require('../../assets/window-room.png')}
+            style={{width: 40, position: "absolute", bottom: 30, zIndex: 1}}
+          />
+          <Image
+            source={require('../../assets/down.png')}
+            style={{width: 30, height: 30, position: "absolute", bottom: 25, left: 10, zIndex: 1}}
+          />
+          <Image
+            source={require('../../assets/up.png')}
+            style={{width: 30, height: 30, position: "absolute", bottom: 25, right: 10, zIndex: 1}}
+          />
+        </View>
+      )
+
+    }
+
+
+    render() {
+
         return (
             <View styles={styles.roomDetailsComponent} >
               <View style={{flexDirection: "row", alignItems: "center"}}>
-                <View style={styles.shutterContainer}>
-                  <View style={styles.shutterValue}>
-                  </View>
-                  <Image
-                    source={require('../../assets/window-room.png')}
-                    style={{width: 40, position: "absolute", bottom: 30, zIndex: 1}}
-                  />
-                  <Image
-                    source={require('../../assets/down.png')}
-                    style={{width: 30, height: 30, position: "absolute", bottom: 25, left: 10, zIndex: 1}}
-                  />
-                  <Image
-                    source={require('../../assets/up.png')}
-                    style={{width: 30, height: 30, position: "absolute", bottom: 25, right: 10, zIndex: 1}}
-                  />
-                </View>
-                <View style={styles.shutterContainer}>
-                  <View style={styles.shutterValue}>
-                  </View>
-                  <Image
-                    source={require('../../assets/window-room.png')}
-                    style={{width: 40, position: "absolute", bottom: 30, zIndex: 1}}
-                  />
-                  <Image
-                    source={require('../../assets/down.png')}
-                    style={{width: 30, height: 30, position: "absolute", bottom: 25, left: 10, zIndex: 1}}
-                  />
-                  <Image
-                    source={require('../../assets/up.png')}
-                    style={{width: 30, height: 30, position: "absolute", bottom: 25, right: 10, zIndex: 1}}
-                  />
-                </View>
 
-                <View style={styles.lightContainer}>
-                  <View style={styles.lightValue}>
+                <FlatList
+                  data={this.props.room ? this.props.room.pins.filter(item => item.type === "shutter") : []}
+                  renderItem={this.renderShutters}
+                  numColumns={2}
+                />
+
+                <TouchableOpacity onPress={() => {
+                  this.setState({lightValue: !this.state.lightValue})
+                }}>
+                  <View style={styles.lightContainer}>
+                    <View style={{...styles.lightValue, height: this.state.lightValue ? "100%" : 0}}>
+                    </View>
+
+                      <Image
+                        source={require('../../assets/light-room.png')}
+                        style={{width: 30, position: "absolute", bottom: 20, zIndex: 1}}
+                      />
                   </View>
-                  <Image
-                    source={require('../../assets/light-room.png')}
-                    style={{width: 30, position: "absolute", bottom: 20, zIndex: 1}}
-                  />
-                </View>
+                </TouchableOpacity>
+
               </View>
-
 
 
             </View>
