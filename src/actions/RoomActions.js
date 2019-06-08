@@ -1,4 +1,4 @@
-import { getData, storeData, updateData} from '../utils/_firebase';
+ import { getData, storeData, updateData} from '../utils/_firebase';
 import { _objToArray } from '../utils/_helpers';
 import NavigationService from '../routes/navigationService';
 import {
@@ -6,6 +6,7 @@ import {
 } from './types';
 
 export const getRooms = () => {
+  console.log('get rooms');
   return (dispatch, getState) => {
     let userId = getState().auth.currentUser.uid;
     console.log("user_id", userId);
@@ -35,8 +36,11 @@ export const addRoom = () => {
     let userId = getState().auth.currentUser.uid;
     console.log("user_id", userId);
     let data = {
-      title: "living room 2",
-      type: "livingroom"
+      title: "other room",
+      type: "livingroom",
+      pins: [{
+        type: "light"
+      }]
     }
     storeData(`users/${userId}/rooms`, data)
     .then((result) => {

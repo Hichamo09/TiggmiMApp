@@ -42,7 +42,7 @@ export default class Rooms extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            myText: 'Bedroom 1',
+            myText: '',
             gestureName: 'none',
             backgroundColor: '#fff',
             activeIndex: 0,
@@ -125,10 +125,14 @@ export default class Rooms extends Component {
     }
 
     componentDidMount () {
-      this.props.getRooms();
-      let roomsLength = this.props.rooms.length;
-      console.log(roomsLength)
-      this.setState({roomsLength});
+      if (this.props.navigation.getParam('room_id')) {
+        console.log('rooom id is here', this.props.navigation.getParam('room_id'));
+        return this.setState({activeIndex: this.props.navigation.getParam('room_id')}, () => {
+          this.setState({myText: this.props.rooms[this.state.activeIndex].title})
+        })
+      }
+      this.setState({myText: this.props.rooms[this.state.activeIndex].title})
+
     }
 
     updateRoom = () => {

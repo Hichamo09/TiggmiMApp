@@ -1,11 +1,13 @@
-import React, { Component } from 'react'
+  import React, { Component } from 'react'
 import {
-  View, Image, Text, FlatList, Dimensions, ScrollView, TouchableOpacity
+  View, Image, Text, FlatList, Dimensions, ScrollView, TouchableOpacity, ActivityIndicator
 } from 'react-native'
 import styles from './main.styles'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import rooms from './rooms';
+import { _getRoomImage } from '../../utils/_helpers'
+
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -69,51 +71,76 @@ export default class Home extends Component {
 
   componentDidMount () {
     this.props.checkAuth();
-
+    this.props.getRooms();
 
   }
 
+
   render () {
-    return (
-      <ScrollView style={styles.container}>
-        <View style={styles.topView}>
-          <TouchableOpacity onPress={() => this.props.navigation.openDrawer()}>
-            <Image
-              style={styles.Image}
-              source={require('../../assets/sun.png')}
-            />
-          </TouchableOpacity>
-          <View style={styles.cityTemp}>
-            <Text style={styles.Temp}>{this.state.temp}</Text>
-            <Text style={styles.Degree}>o</Text>
-          </View>
-          <Text style={styles.houseTemp}>{this.state.city}</Text>
+    if (this.props.user.hasOwnProperty('uid') && this.props.rooms.length < 1) {
+      if (this.state.getRoomStatus !== "done") {
+        this.props.getRooms();
+        this.setState({getRoomStatus: "done"})
+      }
+      return (
+        <View style={{alignItems: "center", justifyContent: "center", marginTop: 100}}>
+          <ActivityIndicator size="large" color="#669de6" />
         </View>
-        <View style={styles.List}>
-              <FlatList
-                data={this.state.roomdata}
-                numColumns={3}
-                renderItem={({item, index}) => (
-                  <Image
-                    style={styles.nano}
-                    source={rooms[item.room].url}
-                    resizeMode="contain"
-                  />
-                )}
+      )
+    }else if (this.props.rooms.length > 0) {
+      return (
+        <ScrollView style={styles.container}>
+          <View style={styles.topView}>
+            <TouchableOpacity onPress={() => this.props.navigation.openDrawer()}>
+              <Image
+                style={styles.Image}
+                source={require('../../assets/sun.png')}
               />
-        </View>
-        <View style={styles.tempView}>
-          <View style={styles.House}>
-            <Text style={styles.houseTemp}>House</Text>
-            <Text style={styles.houseTemp}>Temperature</Text>
+            </TouchableOpacity>
+            <View style={styles.cityTemp}>
+              <Text style={styles.Temp}>{this.state.temp}</Text>
+              <Text style={styles.Degree}>o</Text>
+            </View>
+            <Text style={styles.houseTemp}>{this.state.city}</Text>
+          </View>
+          <View style={styles.List}>
+                <FlatList
+                  data={this.props.rooms}
+                  numColumns={3}
+                  renderItem={({item, index}) => (
+                    <TouchableOpacity onPress={() => {
+                      this.props.navigation.navigate('Rooms', {room_id: index})
+                    }}>
+                      <Image
+                        style={styles.nano}
+                        source={_getRoomImage(item.type)}
+                        resizeMode="contain"
+                      />
+                    </TouchableOpacity>
+
+                  )}
+                />
           </View>
           <View style={styles.tempView}>
-            <Text style={styles.Temp}>{this.state.hometemp}</Text>
-            <Text style={styles.Degree}>o</Text>
-            <Text style={styles.Temp}>C</Text>
+            <View style={styles.House}>
+              <Text style={styles.houseTemp}>House</Text>
+              <Text style={styles.houseTemp}>Temperature</Text>
+            </View>
+            <View style={styles.tempView}>
+              <Text style={styles.Temp}>{this.state.hometemp}</Text>
+              <Text style={styles.Degree}>o</Text>
+              <Text style={styles.Temp}>C</Text>
+            </View>
           </View>
-        </View>
-      </ScrollView>
-    )
+        </ScrollView>
+      )
+    }else {
+      return (
+          <View style={{alignItems: "center", justifyContent: "center", marginTop: 100}}>
+            <ActivityIndicator size="large" color="#669de6" />
+          </View>
+      )
+    }
+
   }
 }
