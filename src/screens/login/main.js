@@ -21,7 +21,7 @@ class Login extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      phone_number: "",
+      phone_number: "212652317330",
       showModal: false,
       confirmationCode: ""
     }

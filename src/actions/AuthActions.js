@@ -1,5 +1,6 @@
 import firebase from 'firebase';
 import NavigationService from '../routes/navigationService';
+import { findValue } from '../utils/_firebase';
 import {
   LOGIN_CONFIRMATION,
   SUCCESS_LOGIN,
@@ -38,17 +39,25 @@ export const signUp = (number, captchaToken) => {
     verify: () => Promise.resolve(captchaToken)
   }
   return (dispatch) => {
-    firebase.auth().signInWithPhoneNumber(number, captchaVerifier)
-    .then((code) => {
-      dispatch({
-        type: LOGIN_CONFIRMATION,
-        payload: code
-      })
-    })
-    .catch((err) => {
-      console.log('----------err', err);
-      loginFailed(dispatch, "Oops! something is wrong")
+    findValue("users", number).then((result) => {
+      if (result) {
+        firebase.auth().signInWithPhoneNumber(number, captchaVerifier)
+        .then((code) => {
+          dispatch({
+            type: LOGIN_CONFIRMATION,
+            payload: code
+          })
+        })
+        .catch((err) => {
+          console.log('----------err', err);
+          loginFailed(dispatch, "Oops! something is wrong")
+        });
+      }
+    }).catch((err) => {
+      console.log('err', err);
+      loginFailed(dispatch, "Oops! your number is not exist in our records")
     });
+
   }
 }
 
