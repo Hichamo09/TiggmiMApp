@@ -8,7 +8,8 @@ import {
 export const getRooms = () => {
   console.log('get rooms');
   return (dispatch, getState) => {
-    let userId = getState().auth.currentUser.uid;
+    console.log('auth.currentUser', getState().auth.currentUser);
+    let userId = getState().auth.currentUser.parentId;
     console.log("user_id", userId);
     getData(`users/${userId}/rooms`)
     .then((result) => {
@@ -33,7 +34,7 @@ export const getRooms = () => {
 
 export const addRoom = () => {
   return (dispatch, getState) => {
-    let userId = getState().auth.currentUser.uid;
+    let userId = getState().auth.currentUser.parentId;
     console.log("user_id", userId);
     let data = {
       title: "other room",
@@ -60,7 +61,7 @@ export const addRoom = () => {
 
 export const updateRoom = (id, data) => {
   return (dispatch, getState) => {
-    let userId = getState().auth.currentUser.uid;
+    let userId = getState().auth.currentUser.parentId;
     console.log('----------data', data, id);
     updateData(`users/${userId}/rooms/${id}`, data)
     .then((result) => {

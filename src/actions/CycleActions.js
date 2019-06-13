@@ -9,7 +9,7 @@ import {
 export const addCycle = (data) => {
   console.log('----data', data);
   return (dispatch, getState) => {
-    let userId = getState().auth.currentUser.uid;
+    let userId = getState().auth.currentUser.parentId;
     storeData('users/' + userId + '/cycles/', data)
     .then((result) => {
       NavigationService.navigate('Cycles');
@@ -22,7 +22,7 @@ export const addCycle = (data) => {
 
 export const getCycle = () => {
   return (dispatch, getState) => {
-    let userId = getState().auth.currentUser.uid;
+    let userId = getState().auth.currentUser.parentId;
     getData('users/' + userId + '/cycles')
     .then((result) => {
       dispatch({
@@ -39,7 +39,7 @@ export const getCycle = () => {
 
 export const updateCycle = (id, data) => {
   return (dispatch, getState) => {
-    let userId = getState().auth.currentUser.uid;
+    let userId = getState().auth.currentUser.parentId;
     updateData(`users/${userId}/cycles/${id}`, data)
     .then((result) => {
       NavigationService.navigate('Cycles');

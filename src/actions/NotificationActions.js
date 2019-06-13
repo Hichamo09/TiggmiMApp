@@ -9,7 +9,7 @@ import {
 
 export const getNotifications = () => {
   return async (dispatch, getState) => {
-    let userId = getState().auth.currentUser.uid;
+    let userId = getState().auth.currentUser.parentId;
     getData(`users/${userId}/notifications`)
     .then((result) => {
       dispatch({
@@ -30,7 +30,7 @@ export const addNotification = (data) => {
     time: moment().toISOString()
   }
   return (dispatch, getState) => {
-    let userId = getState().auth.currentUser.uid;
+    let userId = getState().auth.currentUser.parentId;
     storeData('users/' + userId + '/notifications/', data)
     .then((result) => {
       NavigationService.navigate('notifications');

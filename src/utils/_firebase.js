@@ -38,18 +38,36 @@ export const deleteData = (ref) => {
 export const findValue = (ref, number) => {
   console.log('NUMBER', number);
   return new Promise(function(resolve, reject) {
+    let userType = null;
+    let parentId = null;
     firebase.database().ref(ref).on('value', (snapshot) => {
       console.log('snapshot', snapshot.val());
       let data = _objToArray(snapshot.val())
       console.log('data', data);
+      //search in members list
       for (var i = 0; i < data.length; i++) {
         let users = _objToArray(data[i].members);
         let index = users.findIndex(x => x.phone_number === number);
         if (index > -1) {
-          console.log('---------yeeeeah ');
-          return resolve(true)
+          console.log('---------yeeeeah');
+          userType = "child"
+          parentId = data[i].id
         }
       }
+
+      //search in users list
+      for (var i = 0; i < data.length; i++) {
+        let userInfo = data[i].userInfo
+        console.log('userInfo', userInfo, data[i]);
+        if (userInfo.phone_number === number) {
+          console.log('---------yeeeeah in userInfo ');
+          userType = "parent"
+          parentId = data[i].id
+        }
+      }
+
+      if (userType) return resolve({userType, parentId})
+
       return reject(false)
     })
   });

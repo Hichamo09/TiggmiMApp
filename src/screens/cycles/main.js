@@ -48,7 +48,6 @@ export default class Cycles extends Component {
 
     componentDidMount() {
       this.props.getCycle()
-      this.props.getRooms()
       
     }
 

@@ -9,7 +9,7 @@ import {
 export const addMember = (data) => {
   console.log('---------------data', data);
   return (dispatch, getState) => {
-    let userId = getState().auth.currentUser.uid;
+    let userId = getState().auth.currentUser.parentId;
     storeData('users/' + userId + '/members/', data)
     .then((result) => {
       NavigationService.navigate('Members');
@@ -23,7 +23,7 @@ export const addMember = (data) => {
 
 export const getMembers = () => {
   return (dispatch, getState) => {
-    let userId = getState().auth.currentUser.uid;
+    let userId = getState().auth.currentUser.parentId;
     getData(`users/${userId}/members`)
     .then((result) => {
       dispatch({
@@ -39,7 +39,7 @@ export const getMembers = () => {
 
 export const updateMember = (id, data) => {
   return (dispatch, getState) => {
-    let userId = getState().auth.currentUser.uid;
+    let userId = getState().auth.currentUser.parentId;
     updateData(`users/${userId}/members/${id}`, data)
     .then((result) => {
       NavigationService.navigate('Members');

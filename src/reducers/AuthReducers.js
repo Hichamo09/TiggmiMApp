@@ -7,6 +7,8 @@ import {
 
 const INITIAL_STATE = {
   currentUser: {},
+  parentId: "",
+  userType: "",
   firebaseCode: "",
   errorMessage: "",
   codeIsSent: false
@@ -17,17 +19,22 @@ export default (state=INITIAL_STATE, action) => {
     case LOGIN_CONFIRMATION:
       return {
         ...state,
-        firebaseCode: action.payload,
+        firebaseCode: action.payload.code,
         codeIsSent: true,
-        errorMessage: ""
+        errorMessage: "",
+        parentId: action.payload.parentId,
+        userType: action.payload.userType
       }
     case SUCCESS_LOGIN:
+    console.log('action.payload.userType.parentId', action.payload.userType);
       return {
         ...state,
         currentUser: {
           uid: action.payload.user.uid,
           phone_number: action.payload.user.phoneNumber,
-          token: action.payload.token
+          token: action.payload.token,
+          parentId: action.payload.userType.parentId,
+          userType: action.payload.userType.userType
         },
         errorMessage: ""
       }

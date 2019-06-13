@@ -1,5 +1,6 @@
 import firebase from 'firebase';
 import NavigationService from '../routes/navigationService';
+import { AsyncStorage } from 'react-native';
 import { findValue } from '../utils/_firebase';
 import {
   LOGIN_CONFIRMATION,
@@ -11,14 +12,15 @@ import {
 export const checkAuth = () => {
   return (dispatch) => {
     firebase.auth().onAuthStateChanged((user) => {
-
       console.log('user----', user);
       if (user) {
-        firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+        firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(async (idToken) => {
           console.log('idToken', idToken);
+          let userType = await AsyncStorage.getItem('userType')
+          console.log('userType', userType);
           dispatch({
             type: SUCCESS_LOGIN,
-            payload: {user: user, token: idToken}
+            payload: {user: user, token: idToken, userType: JSON.parse(userType)}
           })
         }).catch(function(error) {
           console.log('error', error);
@@ -42,10 +44,13 @@ export const signUp = (number, captchaToken) => {
     findValue("users", number).then((result) => {
       if (result) {
         firebase.auth().signInWithPhoneNumber(number, captchaVerifier)
-        .then((code) => {
+        .then(async (code) => {
+          console.log('code ', code);
+          console.log("result", result);
+          await AsyncStorage.setItem("userType", JSON.stringify(result))
           dispatch({
             type: LOGIN_CONFIRMATION,
-            payload: code
+            payload: {code, ...result}
           })
         })
         .catch((err) => {
@@ -64,12 +69,11 @@ export const signUp = (number, captchaToken) => {
 export const confirmCode = (confirm, code) => {
   return (dispatch) => {
     confirm.confirm(code).then((result) => {
+      NavigationService.navigate('Home')
       dispatch({
         type: SUCCESS_LOGIN,
         payload: result.user
       })
-      NavigationService.navigate('Home')
-
     }).catch((err) => {
       loginFailed(dispatch, "confirmation code is wrong")
     });

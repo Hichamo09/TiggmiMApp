@@ -72,6 +72,8 @@ export default class AddCycle extends Component {
   }
 
   componentDidMount () {
+    console.log('-------------this.props.rooms', this.props.rooms);
+    this.setState({refresh: !this.state.refresh})
     this.props.navigation.setParams({
      addCycle: this.addCycle
     })
@@ -81,7 +83,7 @@ export default class AddCycle extends Component {
         const { title, selectedRooms, globalStartTime, globalEndTime, roomsItemsTime, id} = this.props.navigation.state.params.cycle
         roomsItemsTimeEdited = roomsItemsTime.filter(item => item);
         this.setState({
-          cycleId: id, title, selectedRooms, globalStartTime, globalEndTime, roomsItemsTime: roomsItemsTimeEdited, editMode: true, refresh: !this.state.refresh
+          editMode: true, cycleId: id, title, selectedRooms, globalStartTime, globalEndTime, roomsItemsTime: roomsItemsTimeEdited,  refresh: !this.state.refresh
         })
       }
     }
@@ -163,6 +165,7 @@ export default class AddCycle extends Component {
 
   renderSelectedRooms = (item) => {
     let room = this.props.rooms.find(x => x.id === item.item);
+    console.log('item', item);
     return (
       <View style={styles.roomBlock}>
         <Text style={styles.roomTitle}>{room.title}</Text>
@@ -286,7 +289,7 @@ export default class AddCycle extends Component {
             <Text style={styles.blockTitle}>Peripherals:</Text>
           </View>
           {
-            this.state.selectedRooms.length > 1 ?
+            this.state.selectedRooms.length > 1 && this.state.editMode ?
             <FlatList
               data={this.props.rooms}
               extraData={this.state.refresh}
