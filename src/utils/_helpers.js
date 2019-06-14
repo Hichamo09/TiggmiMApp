@@ -15,6 +15,23 @@ export const _objToArray = (obj) => {
   return arr;
 }
 
+export const _filterRooms = (rooms, memberRooms) => {
+  console.log('rooms-------------------', rooms);
+  console.log('memberRooms', memberRooms);
+
+  let data = [];
+  for (var i = 0; i < rooms.length; i++) {
+    console.log('roooms[i]', rooms[i]);
+    let key = memberRooms.findIndex(x => x == rooms[i].id);
+    console.log('key', key);
+    if (key > -1) {
+      console.log('loooooooooool yeeeag', rooms[i], key);
+       data.push(rooms[i])
+    }
+  }
+  console.log('rooms', data);
+  return data
+}
 
 export const _notificationTime = (time) => {
   time = moment(time).fromNow();
@@ -23,6 +40,7 @@ export const _notificationTime = (time) => {
 
 
 export const _getRoomImage = (type) => {
+  console.log('type', type);
   let room = rooms.find((x) => {
     return x.type === type
   })

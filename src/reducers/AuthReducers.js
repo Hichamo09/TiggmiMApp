@@ -34,7 +34,9 @@ export default (state=INITIAL_STATE, action) => {
           phone_number: action.payload.user.phoneNumber,
           token: action.payload.token,
           parentId: action.payload.userType.parentId,
-          userType: action.payload.userType.userType
+          userType: action.payload.userType.userType,
+          rooms: action.payload.userType.rooms,
+          role: action.payload.userType.role
         },
         errorMessage: ""
       }

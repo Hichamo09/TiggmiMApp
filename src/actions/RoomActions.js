@@ -1,5 +1,5 @@
  import { getData, storeData, updateData} from '../utils/_firebase';
-import { _objToArray } from '../utils/_helpers';
+import { _objToArray, _filterRooms } from '../utils/_helpers';
 import NavigationService from '../routes/navigationService';
 import {
   ROOMS_LIST
@@ -14,10 +14,11 @@ export const getRooms = () => {
     getData(`users/${userId}/rooms`)
     .then((result) => {
       console.log('-------result', _objToArray(result));
-      console.log('------result', result);
+      let data = _filterRooms(_objToArray(result), getState().auth.currentUser.rooms)
+      console.log('------result', data);
       dispatch({
         type: ROOMS_LIST,
-        payload: _objToArray(result)
+        payload: data
       })
     })
     .catch((err) => {

@@ -64,7 +64,11 @@ const styles = StyleSheet.create({
       marginRight: 10
     },
     fab: {
-        backgroundColor:'#145bb4'
+        backgroundColor:'#145bb4',
+        marginBottom: 20,
+        justifyContent: "center",
+        alignItems: "center",
+        textAlign: "center"
     }
 });
 

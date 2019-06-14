@@ -47,6 +47,7 @@ export const signUp = (number, captchaToken) => {
         .then(async (code) => {
           console.log('code ', code);
           console.log("result", result);
+          console.log('JSON.stringify(result)', JSON.stringify(result));
           await AsyncStorage.setItem("userType", JSON.stringify(result))
           dispatch({
             type: LOGIN_CONFIRMATION,

@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
         textAlign: "center"
     },
     shutterContainer: {
-      height: 100,
+      height: 110,
       backgroundColor: "#ccc",
       margin: 5,
       flex: 1,

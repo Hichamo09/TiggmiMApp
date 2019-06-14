@@ -40,6 +40,8 @@ export const findValue = (ref, number) => {
   return new Promise(function(resolve, reject) {
     let userType = null;
     let parentId = null;
+    let rooms = null;
+    let role = null;
     firebase.database().ref(ref).on('value', (snapshot) => {
       console.log('snapshot', snapshot.val());
       let data = _objToArray(snapshot.val())
@@ -52,6 +54,9 @@ export const findValue = (ref, number) => {
           console.log('---------yeeeeah');
           userType = "child"
           parentId = data[i].id
+          console.log('data[i].members[index]', users[index]);
+          rooms = users[index].rooms
+          role = users[index].role
         }
       }
 
@@ -65,9 +70,13 @@ export const findValue = (ref, number) => {
           parentId = data[i].id
         }
       }
-
-      if (userType) return resolve({userType, parentId})
-
+      console.log({userType, parentId, rooms});
+      if (userType) {
+        if (rooms) {
+          return resolve({userType, parentId, rooms, role})
+        }
+        return resolve({userType, parentId})
+      }
       return reject(false)
     })
   });

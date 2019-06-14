@@ -63,8 +63,7 @@ export default class AddMember extends Component {
   componentDidMount () {
     this.props.navigation.setParams({
      addMember: this.addMember
-    })
-    this.props.getRooms();
+   })
     //if edit screen
     if (this.props.navigation.state.params) {
       if (this.props.navigation.state.params.hasOwnProperty('member')) {

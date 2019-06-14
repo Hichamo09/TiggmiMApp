@@ -6,7 +6,8 @@ import { getRooms } from '../../actions/RoomActions'
 import Members from './main';
 
 const mapStateToProps = (state) => ({
-  members: state.member.membersList
+  members: state.member.membersList,
+  currentUser: state.auth.currentUser
 })
 
 export default connect(mapStateToProps, {getMembers, getRooms})(Members)

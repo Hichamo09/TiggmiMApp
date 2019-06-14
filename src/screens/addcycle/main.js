@@ -306,7 +306,23 @@ export default class AddCycle extends Component {
 
               )}
             />
-            : null
+            :
+            <FlatList
+              data={this.props.rooms}
+              extraData={this.state.refresh}
+              numColumns={2}
+              renderItem={({item, index}) => (
+                <RoomCard
+                  name={item.title}
+                  type={item.type}
+                  addRemoveRoom={this.addRemoveRoom}
+                  checked={this.checkedRoom(item.id)}
+                  id={item.id}
+                  select={true}
+                />
+
+              )}
+            />
           }
         </View>
 

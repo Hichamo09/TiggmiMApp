@@ -60,8 +60,9 @@ export default class Members extends Component {
 
   componentDidMount () {
     this.props.getMembers();
-    this.props.getRooms();
-    
+    console.log('this.props', this.props.currentUser);
+
+
   }
 
   render () {
@@ -92,15 +93,24 @@ export default class Members extends Component {
             </View>
 
           </View>
+          {
+            //show add button only if the user is an admin
+          }
+          {
+            this.props.currentUser.role !== 'member' ?
+              <View style={styles.fabContainer}>
+                <FAB
+                  style={styles.fab}
+                  icon="add"
+                  color="#fff"
+                  onPress={() => this.props.navigation.navigate('AddMember')}
+                />
+              </View>
+            : null
+          }
+
         </ScrollView>
-        <View style={styles.fabContainer}>
-          <FAB
-            style={styles.fab}
-            icon="add"
-            color="#fff"
-            onPress={() => this.props.navigation.navigate('AddMember')}
-          />
-        </View>
+
       </View>
     )
   }
