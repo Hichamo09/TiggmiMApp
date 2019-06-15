@@ -17,6 +17,7 @@ import Rooms from '../screens/rooms';
 import Alert from '../screens/alerts';
 import Help from '../screens/help';
 import AddCycle from '../screens/addcycle'
+import Consumption from '../screens/consumption'
 
 import drawerContentComponents from '../screens/custom/menu';
 
@@ -33,10 +34,11 @@ const HomeStack = createStackNavigator(
     Rooms: Rooms,
     Alert: Alert,
     Help: Help,
-    AddCycle: AddCycle
+    AddCycle: AddCycle,
+    Consumption: Consumption
   },
   {
-    initialRouteName: "Home"
+    initialRouteName: "Consumption"
   }
 );
 
