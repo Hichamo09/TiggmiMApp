@@ -5,7 +5,8 @@ import {
   StyleSheet,
   Dimensions,
   TouchableOpacity,
-  ScrollView
+  ScrollView,
+  Image
 } from 'react-native';
 import {
   LineChart,
@@ -24,7 +25,8 @@ import Carousel, { Pagination } from 'react-native-snap-carousel';
 import Room from '../rooms/roomComponent';
 import PremiumComponent from '../rooms/PremiumComponent';
 
-import { _getRoomImage } from '../../utils/_helpers'
+import { _getRoomImage } from '../../utils/_helpers';
+import { Hours, Days, Months } from '../../config/chartData';
 
 
 const windowWidth = Dimensions.get('window').width;
@@ -65,7 +67,9 @@ export default class Consumption extends Component {
           gestureName: 'none',
           backgroundColor: '#fff',
           activeIndex: 0,
-          roomsLength: 2
+          roomsLength: 2,
+          showDropdown: false,
+          chartLabels: Days
       };
   }
 
@@ -150,22 +154,60 @@ export default class Consumption extends Component {
     _renderCharts = () => {
       return (
         <View style={styles.chartContainer}>
+          {
+            this.state.showDropdown ?
+            <View style={styles.dropdown}>
+              <TouchableOpacity onPress={() => {
+                this.setState({showDropdown: false})
+              }}>
+                  <Image style={styles.detailsIconUp} source={require('../../assets/details_iconUp.png')}/>
+              </TouchableOpacity>
+
+              <TouchableOpacity onPress={() => {
+                this.setState({chartLabels: Hours})
+              }}>
+                  <Text style={styles.dropdownText}>Per hour</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => {
+                this.setState({chartLabels: Days})
+              }}>
+                <Text style={styles.dropdownText}>Per day</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => {
+                this.setState({chartLabels: Months})
+              }}>
+                <Text style={styles.dropdownText}>Per month</Text>
+              </TouchableOpacity>
+              <TouchableOpacity >
+                <Text style={styles.dropdownText}>Per year</Text>
+              </TouchableOpacity>
+
+            </View>
+            :
+            <View style={styles.detailsIconContainer}>
+              <TouchableOpacity style={{alignItems: "flex-end"}} onPress={() => {
+                this.setState({showDropdown: true})
+              }}>
+                <Image style={styles.detailsIconDown} source={require('../../assets/details_icon.png')}/>
+              </TouchableOpacity>
+            </View>
+          }
+
+
           <View style={styles.chart}>
+          <View style={styles.charTitleContainer}>
+            <Text style={styles.charTitle}>kWh</Text>
+          </View>
           <LineChart
             data={{
-              labels: ["00:00", '1:00', '2:00', '3:00', '4:00', '5:00', '6:00', '7:00', '8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00'],
+              labels: this.state.chartLabels,
               datasets: [{
                 data: [
-                  20, 30, 33, 40,
-                  20, 30, 33, 40,
-                  20, 30, 33, 40,
-                  20, 30, 33, 40,
-                  20, 30, 33, 40,
-                  20, 30, 33, 40,
+                  33, 32, 38, 29, 39, 30, 42
                 ]
               }]
             }}
-            width={Dimensions.get('window').width} // from react-native
+            width={Dimensions.get('window').width - 50} // from react-native
             height={200}
             yAxisLabel={'$'}
             chartConfig={{
@@ -180,8 +222,8 @@ export default class Consumption extends Component {
             }}
             bezier
             style={{
-              marginVertical: 10,
-              borderRadius: 16
+              borderRadius: 16,
+              flex: 6
             }}
           />
           </View>

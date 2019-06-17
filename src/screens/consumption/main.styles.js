@@ -35,15 +35,61 @@ const styles = StyleSheet.create({
   },
   chartContainer: {
     padding: 5,
-    flexDirection: "row",
-    height: 300,
+    flexDirection: "column",
     marginBottom: 100
   },
   chart: {
     flex: 2,
+    flexDirection: "row"
   },
-  chartLabel: {
-    flex: 1
+  charTitleContainer: {
+    width: 32,
+    alignItems: "flex-start",
+    justifyContent: "center",
+    height: 200
+  },
+  charTitle: {
+    transform: [{ rotate: '270deg'}],
+    fontSize: 15,
+    color: "#135CB3",
+    fontWeight: "700"
+  },
+  detailsIconContainer: {
+    width: "100%",
+    right: 0,
+    top: 0,
+    alignItems: "flex-end",
+  },
+  detailsIconDown: {
+    width: 15,
+    height: 15,
+    marginRight: 15
+  },
+  detailsIconUp: {
+    right: 3,
+    top: 3,
+    width: 15,
+    height: 15,
+    marginLeft: 65
+  },
+  dropdown: {
+    width: 100,
+    height: 120,
+    borderWidth: 5,
+    borderRadius: 10,
+    position: "absolute",
+    right: 0,
+    top: 10,
+    borderColor: "#135CB3",
+    zIndex: 1,
+    backgroundColor: "#fff",
+    padding: 5,
+    paddingTop: 10,
+  },
+  dropdownText: {
+    fontSize: 15,
+    color: "#135CB3",
+    fontWeight: "800"
   }
 })
 
