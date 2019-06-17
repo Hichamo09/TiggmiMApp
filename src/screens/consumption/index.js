@@ -2,8 +2,8 @@ import { connect } from 'react-redux';
 
 import Consumption from './main';
 
-const mapStateToProps = () => ({
-
+const mapStateToProps = (state) => ({
+  rooms: state.room.roomsList
 })
 
 export default connect(mapStateToProps, {})(Consumption)

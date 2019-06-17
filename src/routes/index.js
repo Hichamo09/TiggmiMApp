@@ -38,7 +38,7 @@ const HomeStack = createStackNavigator(
     Consumption: Consumption
   },
   {
-    initialRouteName: "Consumption"
+    initialRouteName: "Home"
   }
 );
 
