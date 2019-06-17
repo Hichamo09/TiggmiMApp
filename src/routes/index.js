@@ -51,9 +51,9 @@ const DrawerNavigator = createDrawerNavigator({
 
 const TabNavigator = createBottomTabNavigator(
   {
-    Screen2: Screen2,
+    Screen2: Cycles,
     Home: DrawerNavigator,
-    Screen3: Screen3
+    Screen3: Consumption
   },
   {
     initialRouteName: "Home",
