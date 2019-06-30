@@ -59,7 +59,7 @@ export default class AddCycle extends Component {
       title: "",
       selectedTime: "",
       globalStartTime: "07:00",
-      globalEndTime: "20:00",
+      globalEndTime: "23:59",
       roomsItemsTime: [
         {}
       ],
@@ -87,6 +87,8 @@ export default class AddCycle extends Component {
         })
       }
     }
+
+    this.setState({oldGlobalEndTime: this.state.globalEndTime, oldGlobalStartTime: this.state.globalStartTime})
   }
 
   checkedRoom = (id) => {
@@ -125,12 +127,12 @@ export default class AddCycle extends Component {
       roomsItemsTime: [...this.state.roomsItemsTime, {
         id: id,
         item1: {
-          startTime: "7:00",
-          endTime: "20:00"
+          startTime: this.state.globalStartTime,
+          endTime: this.state.globalEndTime
         },
         item2: {
-          startTime: "7:00",
-          endTime: "20:00"
+          startTime: this.state.globalStartTime,
+          endTime: this.state.globalEndTime
         }
       }]
     })
@@ -138,6 +140,7 @@ export default class AddCycle extends Component {
   }
 
   onCancel() {
+    this.setState({globalEndTime: this.state.oldGlobalEndTime, globalStartTime: this.state.oldGlobalStartTime})
     this.TimePicker.close();
   }
 
@@ -161,6 +164,18 @@ export default class AddCycle extends Component {
         console.log('default');
     }
     this.TimePicker.close();
+  }
+
+  handleGlobalTime = (type) => {
+    switch (type) {
+      case "start":
+        this.setState({timePickerValue: "globalStartTime",  oldGlobalStartTime: this.state.globalStartTime, globalStartTime: "00:00"})
+        break;
+      case "end":
+        this.setState({timePickerValue: "globalEndTime", oldGlobalEndTime: this.state.globalEndTime, globalEndTime: "23:00"})
+        break;
+    }
+    this.TimePicker.open()
   }
 
   renderSelectedRooms = (item) => {
@@ -338,8 +353,7 @@ export default class AddCycle extends Component {
             <View style={{flex:1, textAlign: "center", alignItems: "flex-end", marginRight: 30}}>
               <TouchableOpacity
                 onPress={() => {
-                  this.setState({timePickerValue: "globalStartTime"})
-                  this.TimePicker.open()
+                  this.handleGlobalTime("start")
                 }}
               >
                 <Text style={styles.time}>{this.state.globalStartTime}</Text>
@@ -361,8 +375,8 @@ export default class AddCycle extends Component {
             <View style={{flex:1, textAlign: "center", alignItems: "flex-end", marginRight: 30}}>
             <TouchableOpacity
             onPress={() => {
-              this.setState({timePickerValue: "globalEndTime"})
-              this.TimePicker.open()
+              this.handleGlobalTime("end")
+
             }}
             >
               <Text style={styles.time}>{this.state.globalEndTime}</Text>
@@ -375,6 +389,8 @@ export default class AddCycle extends Component {
             }}
             onCancel={() => this.onCancel()}
             onConfirm={(hour, minute) => this.onConfirm(hour, minute)}
+            maxHour={this.state.globalEndTime.length === 5 ? this.state.globalEndTime.substring(0,2) : this.state.globalEndTime.substring(0,1) }
+            minHour={this.state.globalStartTime.length === 5 ? this.state.globalStartTime.substring(0,2) : this.state.globalStartTime.substring(0,1) }
           />
 
 
