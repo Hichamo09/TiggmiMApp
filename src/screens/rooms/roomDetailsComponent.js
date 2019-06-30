@@ -7,28 +7,30 @@ export default class RoomDetailsComponent extends Component {
     constructor(props){
         super(props)
         this.state = {
-          shutterValue: [
-            {
-              id: 0,
-              value: 0
-            },
-            {
-              id: 2,
-              value: 20
-            }
-          ],
+          shutterValue: [],
           lightValue: 0,
           refresh: true
 
         }
     }
 
+    componentWillMount() {
+      let shutters = [];
+      for (var i = 0; i < this.props.rooms.length; i++) {
+        let obj = this.props.rooms[i].pins.filter(item => item.type === "shutter");
+        shutters = shutters.concat(obj);
+      }
+      let shutterValue = shutters.map((item, index) => {
+        item.value = 20;
+        return item;
+      });
+      this.setState({shutterValue})
+    }
+
 
     controlShutter = (id, type) => {
       let arr = Object.assign([], this.state.shutterValue)
-      console.log('arr', arr);
       let index = arr.findIndex(x => x.id === id);
-      console.log('index', index);
       if (type === "down" && arr[index].value <= 0) return false;
       if (type === "up" && arr[index].value >= 250) return false;
 
@@ -37,21 +39,17 @@ export default class RoomDetailsComponent extends Component {
       }else {
         arr[index].value = arr[index].value - 20;
       }
-      console.log('final arr', arr);
       this.setState({shutterValue: arr, refresh: !this.state.refresh})
 
     }
 
     getshutterValue = (id) => {
-      console.log('this.state.shutterValue', this.state.shutterValue);
       let value = this.state.shutterValue.find(x => x.id === id).value
-      console.log('value', value);
       return value
     }
 
 
     renderShutters = (item) => {
-      console.log('ite(((((((((((((((m--------', item);
       item = item.item;
       return (
         <View style={styles.shutterContainer}>

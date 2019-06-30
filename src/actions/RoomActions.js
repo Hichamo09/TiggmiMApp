@@ -6,16 +6,11 @@ import {
 } from './types';
 
 export const getRooms = () => {
-  console.log('get rooms');
   return (dispatch, getState) => {
-    console.log('auth.currentUser', getState().auth.currentUser);
     let userId = getState().auth.currentUser.parentId;
-    console.log("user_id", userId);
     getData(`users/${userId}/rooms`)
     .then((result) => {
-      console.log('-------result', _objToArray(result));
       let data = _filterRooms(_objToArray(result), getState().auth.currentUser.rooms)
-      console.log('------result', data);
       dispatch({
         type: ROOMS_LIST,
         payload: data
