@@ -60,9 +60,7 @@ export default class AddCycle extends Component {
       selectedTime: "",
       globalStartTime: "07:00",
       globalEndTime: "23:59",
-      roomsItemsTime: [
-        {}
-      ],
+      roomsItemsTime: [],
       timePickerValue: "",
       refresh: false,
       selectedRoom: "",
@@ -163,7 +161,43 @@ export default class AddCycle extends Component {
       default:
         console.log('default');
     }
+    if (this.state.roomsItemsTime.length > 0) {
+      console.log('this.state.roomsItemsTime.length', this.state.roomsItemsTime.length);
+      setTimeout(() => {
+        this.adjustItemsTime()
+      }, 500);
+    }
     this.TimePicker.close();
+  }
+
+  adjustItemsTime = () => {
+    let arr = Object.assign([], this.state.roomsItemsTime)
+    console.log('this.state.roomsItemsTime', this.state.roomsItemsTime);
+    arr = arr.map((item, index) => {
+      console.log('item ', item, "index", index);
+      console.log(parseInt(item.item1.startTime.replace(":", "")) < parseInt(this.state.globalStartTime.replace(":", "")));
+      console.log(parseInt(item.item1.startTime.replace(":", "")), this.state.globalStartTime.replace(":", ""));
+      if (parseInt(item.item1.startTime.replace(":", "")) < parseInt(this.state.globalStartTime.replace(":", ""))) {
+        console.log('case 1');
+        item.item1.startTime = this.state.globalStartTime
+      }
+      if (parseInt(item.item2.startTime.replace(":", "")) < parseInt(this.state.globalStartTime.replace(":", ""))) {
+        console.log('case 2');
+        item.item2.startTime = this.state.globalStartTime
+      }
+      if (parseInt(item.item1.endTime.replace(":", "")) > parseInt(this.state.globalEndTime.replace(":", ""))) {
+        console.log('case 3');
+        item.item1.endTime = this.state.globalEndTime
+      }
+      if (parseInt(item.item2.endTime.replace(":", "")) > parseInt(this.state.globalEndTime.replace(":", ""))) {
+        console.log('case 4');
+        item.item2.endTime = this.state.globalEndTime
+      }
+      return item;
+
+    });
+    console.log('arr', arr);
+    this.setState({roomsItemsTime: arr, refresh: !this.state.refresh})
   }
 
   handleGlobalTime = (type) => {
