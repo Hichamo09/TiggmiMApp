@@ -22,6 +22,7 @@ export default class RoomCard extends Component {
   }
 
   componentDidMount () {
+    console.log('this<props<checked', this.props.checked);
     this.setState({checked: this.props.checked})
   }
 

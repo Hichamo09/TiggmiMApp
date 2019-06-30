@@ -90,6 +90,11 @@ export default class AddCycle extends Component {
   }
 
   checkedRoom = (id) => {
+    console.log('id', id);
+    console.log(this.state.selectedRooms);
+    setTimeout(() => {
+      console.log('after', this.state.selectedRooms);
+    }, 1000);
     let status = this.state.selectedRooms.includes(id);
     if (status) return true;
     return false
@@ -239,6 +244,7 @@ export default class AddCycle extends Component {
               <Text style={{...styles.time, fontSize: 14}}>
                 {this.state.roomsItemsTime.find(x => x.id === room.id).item1.startTime}
               </Text>
+              <Text style={styles.smallText}>start</Text>
             </TouchableOpacity>
           </View>
 
@@ -256,6 +262,7 @@ export default class AddCycle extends Component {
               <Text style={{...styles.time, fontSize: 14}}>
                 {this.state.roomsItemsTime.find(x => x.id === room.id).item1.endTime}
               </Text>
+              <Text style={styles.smallText}>end</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -282,6 +289,7 @@ export default class AddCycle extends Component {
               <Text style={{...styles.time, fontSize: 14}}>
                 {this.state.roomsItemsTime.find(x => x.id === room.id).item2.startTime}
               </Text>
+              <Text style={styles.smallText}>start</Text>
             </TouchableOpacity>
           </View>
 
@@ -299,6 +307,7 @@ export default class AddCycle extends Component {
               <Text style={{...styles.time, fontSize: 14}}>
                 {this.state.roomsItemsTime.find(x => x.id === room.id).item2.endTime}
               </Text>
+              <Text style={styles.smallText}>end</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -356,22 +365,7 @@ export default class AddCycle extends Component {
               )}
             />
             :
-            <FlatList
-              data={this.props.rooms}
-              extraData={this.state.refresh}
-              numColumns={2}
-              renderItem={({item, index}) => (
-                <RoomCard
-                  name={item.title}
-                  type={item.type}
-                  addRemoveRoom={this.addRemoveRoom}
-                  checked={this.checkedRoom(item.id)}
-                  id={item.id}
-                  select={true}
-                />
-
-              )}
-            />
+            null
           }
         </View>
 

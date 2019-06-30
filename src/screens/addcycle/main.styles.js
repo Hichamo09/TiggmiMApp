@@ -82,8 +82,8 @@ const styles = StyleSheet.create({
   },
   roomItems: {
     flexDirection: "row",
-    marginTop: 5,
-    marginBottom: 5,
+    marginTop: 10,
+    marginBottom: 10,
     justifyContent: "center",
     alignItems: "center"
   },
@@ -105,6 +105,13 @@ const styles = StyleSheet.create({
   itemEndTime: {
     flex: 1
   },
+  smallText: {
+    textAlign: "center",
+    fontSize: 12,
+    position: "absolute",
+    left: "25%",
+    bottom: -12
+  }
 });
 
 
