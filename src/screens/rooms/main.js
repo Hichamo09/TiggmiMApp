@@ -214,8 +214,6 @@ export default class Rooms extends Component {
                         this.setState({roomsLength});
                     }}
                 />
-
-
             </View>
         );
     }

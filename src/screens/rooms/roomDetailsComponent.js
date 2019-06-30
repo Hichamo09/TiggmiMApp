@@ -110,14 +110,23 @@ export default class RoomDetailsComponent extends Component {
                     <TouchableOpacity onPress={() => {
                       this.setState({lightValue: !this.state.lightValue})
                     }}>
-                      <View style={styles.lightContainer}>
-                        <View style={{...styles.lightValue, height: this.state.lightValue ? "100%" : 0}}>
+                      {
+                        this.state.lightValue ?
+                        <View style={styles.lightContainer}>
+                            <Image
+                              source={require('../../assets/light-on.png')}
+                              style={{height: 120, width: 50, position: "absolute", zIndex: 1}}
+                            />
                         </View>
-                          <Image
-                            source={require('../../assets/light-room.png')}
-                            style={{width: 30, position: "absolute", bottom: 20, zIndex: 1}}
-                          />
-                      </View>
+                        :
+                        <View style={styles.lightContainer}>
+                            <Image
+                              source={require('../../assets/light-off.png')}
+                              style={{height: 120, width: 50, position: "absolute", zIndex: 1}}
+                            />
+                        </View>
+                      }
+
                     </TouchableOpacity>
                     : null
                     : null

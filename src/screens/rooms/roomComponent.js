@@ -13,9 +13,9 @@ export default class Room extends Component {
                 this.props.url ?
                 <Image
                 source={this.props.url}
-                style={{width: windowWidth, height: 180, resizeMode: 'stretch'}}
+                style={{resizeMode: 'stretch'}}
                 />
-                : null               
+                : null
 
               }
             </View>

@@ -92,9 +92,6 @@ const styles = StyleSheet.create({
     },
     lightContainer: {
       height: 120,
-      backgroundColor: "#ccc",
-      borderBottomLeftRadius: 50,
-      borderBottomRightRadius: 50,
       margin: 5,
       width: 50,
       alignItems: "center"
