@@ -33,8 +33,22 @@ export default class Home extends Component {
       </TouchableOpacity>
     ),
     headerRight: (
-      <View style={{marginRight:12, width: 36, height: 36, backgroundColor:'#55bf64', alignItems: 'center', justifyContent: 'center',}}>
-        <Feather name='lock' size={28} color='#ffffff'/>
+      <View style={{marginRight:12, width: 36, height: 36, backgroundColor:'#55bf64', alignItems: 'center', justifyContent: 'center'}}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.state.params.doorController();
+          }}
+        >
+          {
+            navigation.state.params ?
+            navigation.state.params.door_status ?
+              <Image source={require('../../assets/door_closed.png')}/>
+            :
+              <Image source={require('../../assets/door_opened.png')}/>
+            :
+            null
+          }
+        </TouchableOpacity>
       </View>
     ),
   });
@@ -46,6 +60,7 @@ export default class Home extends Component {
         temp: 12,
         city: 'Casablanca',
         hometemp: 27,
+        door_status: true,
         roomdata: [
           {
             room: 'bedroom1',
@@ -70,9 +85,22 @@ export default class Home extends Component {
   }
 
   componentDidMount () {
+    this.props.navigation.setParams({
+     doorController: this.doorController,
+     door_status: this.state.door_status
+   })
     this.props.checkAuth();
     this.props.getRooms();
 
+  }
+
+  doorController = () => {
+    this.setState({door_status: !this.state.door_status}, () => {
+      this.props.navigation.setParams({
+       door_status: this.state.door_status
+     })
+
+    })
   }
 
 

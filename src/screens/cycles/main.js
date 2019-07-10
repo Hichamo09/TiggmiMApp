@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {
-    View, Dimensions, Text, FlatList, ScrollView, TouchableOpacity
+    View, Dimensions, Text, FlatList, ScrollView, TouchableOpacity, Image
 } from 'react-native'
 import styles from './main.styles'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -33,7 +33,7 @@ export default class Cycles extends Component {
                 <TouchableOpacity onPress={() => {
                   navigation.navigate('AddCycle')
                 }}>
-                  <FontAwesome name='plus' size={28} color='#ffffff'/>
+                  <Image  source={require('../../assets/check.png')}/>
                 </TouchableOpacity>
             </View>
         ),
@@ -48,7 +48,7 @@ export default class Cycles extends Component {
 
     componentDidMount() {
       this.props.getCycle()
-      
+
     }
 
     renderDetail = (item) => {

@@ -85,18 +85,21 @@ const styles = StyleSheet.create({
   roomImage: {
     flex: 1,
     height: 60,
-    width: 100
+    width: 95
   },
   roomDetails: {
     flex: 2,
     flexDirection: "column"
   },
   roomTitle: {
-    flex: 1
+    flex: 1,
+    marginLeft: 5
+    
   },
   roomAccess: {
     flex: 2,
     marginTop: -5,
+    marginLeft: 5
   },
   roomAccessText: {
     fontSize: 10

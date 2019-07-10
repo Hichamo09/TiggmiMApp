@@ -38,7 +38,7 @@ export default class AddMember extends Component {
             navigation.state.params.addMember();
           }}
         >
-          <Feather name='check' size={28} color='#ffffff'/>
+          <Image  source={require('../../assets/check.png')}/>
         </TouchableOpacity>
       </View>
     ),
@@ -134,20 +134,37 @@ export default class AddMember extends Component {
                   this.setState({gender: "male"})
                 }}
               >
-                <Image
-                  source={require('../../assets/male_gender.png')}
-                  style={styles.genderImage}
-                />
+                {
+                  this.state.gender === "male" ?
+                  <Image
+                    source={require('../../assets/male_gender_colored.png')}
+                    style={styles.genderImage}
+                  />
+                  :
+                  <Image
+                    source={require('../../assets/male_gender.png')}
+                    style={styles.genderImage}
+                  />
+                }
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
                   this.setState({gender: "female"})
                 }}
               >
-                <Image
-                  source={require('../../assets/female_gender.png')}
-                  style={styles.genderImage}
-                />
+                {
+                  this.state.gender === "female" ?
+                  <Image
+                    source={require('../../assets/female_gender_colored.png')}
+                    style={styles.genderImage}
+                  />
+                  :
+                  <Image
+                    source={require('../../assets/female_gender.png')}
+                    style={styles.genderImage}
+                  />
+                }
+
               </TouchableOpacity>
             </View>
         </View>

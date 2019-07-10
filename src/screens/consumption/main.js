@@ -88,62 +88,10 @@ export default class Consumption extends Component {
                         <FontAwesome name="chevron-left" size={24} color="#2B7CD9" />
                     </View>
                 </TouchableOpacity>
-                <View style={styles.topName}>
-                    <Text style={styles.titleText}>{this.state.myText}</Text>
-                </View>
             </View>
         );
     }
 
-    _renderSlider = () => {
-        return (
-            <View style={{ height: 200, paddingTop: 20,}}>
-                <Carousel
-                    data={this.props.rooms}
-                    sliderWidth={windowWidth}
-                    itemWidth={windowWidth}
-                    renderItem={this._renderItem}
-                    onSnapToItem = { (index) => {
-                        this.setState({activeIndex:index})
-                        this.setState({myText: this.props.rooms[index].title})
-
-                        let roomsLength = this.props.rooms.length;
-                        console.log(roomsLength)
-                        this.setState({roomsLength});
-                    }}
-                />
-
-
-            </View>
-        );
-    }
-
-    _renderItem = () => {
-        return <Room url={_getRoomImage(this.props.rooms[this.state.activeIndex].type)} />;
-    }
-
-    _pagination = () => {
-        const { activeIndex } = this.state;
-        const { rooms } = this.props;
-        return (
-            <Pagination
-                dotsLength={rooms.length}
-                activeDotIndex={activeIndex}
-                containerStyle={{ backgroundColor: '#FFF', }}
-                dotStyle={{
-                    width: 40,
-                    height: 10,
-                    borderRadius: 5,
-                    backgroundColor: '#2B7CD9'
-                }}
-                inactiveDotStyle={{
-                    // Define styles for inactive dots here
-                }}
-                inactiveDotOpacity={0.4}
-                inactiveDotScale={0.6}
-            />
-        );
-    }
 
 
     _renderCharts = () => {
@@ -235,8 +183,6 @@ export default class Consumption extends Component {
         return (
                 <ScrollView style={styles.container}>
                     { this._renderTitle() }
-                    { this._renderSlider() }
-                    { this._pagination() }
                     { this._renderCharts()}
                 </ScrollView>
         );

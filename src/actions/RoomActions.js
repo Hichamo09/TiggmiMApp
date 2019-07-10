@@ -1,4 +1,5 @@
  import { getData, storeData, updateData} from '../utils/_firebase';
+ import { get } from '../utils/_api';
 import { _objToArray, _filterRooms } from '../utils/_helpers';
 import NavigationService from '../routes/navigationService';
 import {
@@ -66,6 +67,17 @@ export const updateRoom = (id, data) => {
     })
     .catch((err) => {
       console.log('----------err', err);
+    });
+  }
+}
+
+
+export const updateLight = (data) => {
+  return (dispatch, getState) => {
+    let userId = getState().auth.currentUser.parentId;
+    get(`/api/update?idOut=${data.pin_id}&value=${data.value}&user_id=${userId}&room_id=${data.room_id}`)
+    .then((result) => {
+      console.log('result');
     });
   }
 }

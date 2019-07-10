@@ -15,6 +15,9 @@ export default class RoomDetailsComponent extends Component {
     }
 
     componentWillMount() {
+      if (this.props.room.pins.find(x => x.type === "light")) {
+        this.setState({lightValue: this.props.room.pins.find(x => x.type === "light").value})
+      }
       let shutters = [];
       for (var i = 0; i < this.props.rooms.length; i++) {
         let obj = this.props.rooms[i].pins.filter(item => item.type === "shutter");
@@ -46,6 +49,20 @@ export default class RoomDetailsComponent extends Component {
     getshutterValue = (id) => {
       let value = this.state.shutterValue.find(x => x.id === id).value
       return value
+    }
+
+    controlLight = () => {
+      console.log('this.props.room', this.props.room);
+      let id = this.props.room.pins.find(x => x.type === "light").id
+      this.setState({lightValue: !this.state.lightValue}, () => {
+        let data = {
+          pin_id: id,
+          room_id: this.props.room.id,
+          value: this.state.lightValue
+        }
+        this.props.control(data)
+
+      })
     }
 
 
@@ -108,7 +125,7 @@ export default class RoomDetailsComponent extends Component {
                   this.props.room ?
                     this.props.room.pins.find(x => x.type === "light") ?
                     <TouchableOpacity onPress={() => {
-                      this.setState({lightValue: !this.state.lightValue})
+                      this.controlLight()
                     }}>
                       {
                         this.state.lightValue ?

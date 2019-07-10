@@ -147,6 +147,11 @@ export default class Rooms extends Component {
       this.props.updateRoom(room.id, room)
     }
 
+    updateLight = (data) => {
+      console.log('data', data);
+      this.props.updateLight(data)
+    }
+
     _renderTitle = () => {
         return (
             <View style={styles.nameHeader}>
@@ -245,7 +250,7 @@ export default class Rooms extends Component {
         );
     }
     _renderRoomDetails = () => {
-        return <RoomDetailsComponent rooms={this.props.rooms} room={this.props.rooms[this.state.activeIndex]} />
+        return <RoomDetailsComponent control={(data) => this.updateLight(data)} rooms={this.props.rooms} room={this.props.rooms[this.state.activeIndex]} />
 
     }
 
