@@ -9,6 +9,7 @@ const INITIAL_STATE = {
   currentUser: {},
   parentId: "",
   userType: "",
+  ip: "",
   firebaseCode: "",
   errorMessage: "",
   codeIsSent: false
@@ -36,7 +37,8 @@ export default (state=INITIAL_STATE, action) => {
           parentId: action.payload.userType.parentId,
           userType: action.payload.userType.userType,
           rooms: action.payload.userType.rooms,
-          role: action.payload.userType.role
+          role: action.payload.userType.role,
+          ip: action.payload.userType.ip
         },
         errorMessage: ""
       }

@@ -42,6 +42,7 @@ export const findValue = (ref, number) => {
     let parentId = null;
     let rooms = null;
     let role = null;
+    let ip = null;
     firebase.database().ref(ref).on('value', (snapshot) => {
       console.log('snapshot', snapshot.val());
       let data = _objToArray(snapshot.val())
@@ -49,9 +50,12 @@ export const findValue = (ref, number) => {
       //search in members list
       for (var i = 0; i < data.length; i++) {
         let users = _objToArray(data[i].members);
+        console.log('');
         let index = users.findIndex(x => x.phone_number === number);
         if (index > -1) {
           console.log('---------yeeeeah');
+          ip =  data[i].userInfo.Ip
+          console.log('ip', ip);
           userType = "child"
           parentId = data[i].id
           console.log('data[i].members[index]', users[index]);
@@ -68,14 +72,15 @@ export const findValue = (ref, number) => {
           console.log('---------yeeeeah in userInfo ');
           userType = "parent"
           parentId = data[i].id
+          ip = data[i].Ip
         }
       }
       console.log({userType, parentId, rooms});
       if (userType) {
         if (rooms) {
-          return resolve({userType, parentId, rooms, role})
+          return resolve({userType, parentId, rooms, role, ip})
         }
-        return resolve({userType, parentId})
+        return resolve({userType, parentId, ip})
       }
       return reject(false)
     })

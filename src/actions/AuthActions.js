@@ -43,6 +43,7 @@ export const signUp = (number, captchaToken) => {
   return (dispatch) => {
     findValue("users", number).then((result) => {
       if (result) {
+        console.log('result--------------------------', result);
         firebase.auth().signInWithPhoneNumber(number, captchaVerifier)
         .then(async (code) => {
           console.log('code ', code);
