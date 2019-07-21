@@ -16,6 +16,7 @@ export default class RoomDetailsComponent extends Component {
 
     componentWillMount() {
       if (this.props.room.pins.find(x => x.type === "light")) {
+        console.log('this.props.room', this.props.room.pins.find(x => x.type === "light"));
         this.setState({lightValue: this.props.room.pins.find(x => x.type === "light").value})
       }
       let shutters = [];
@@ -29,6 +30,17 @@ export default class RoomDetailsComponent extends Component {
       });
       this.setState({shutterValue})
     }
+
+    componentWillReceiveProps(nextProps) {
+      console.log('will componentWillReceiveProps', this.props.room.pins, nextProps.room.pins);
+      if (this.props.room.id !== nextProps.room.id) {
+        console.log('looooooooool', this.props.room.pins.find(x => x.type === "light").value);
+        this.setState({lightValue: nextProps.room.pins.find(x => x.type === "light").value}, () => {
+          console.log('this.state', this.state.lightValue);
+        })
+      }
+    }
+
 
 
     controlShutter = (id, type) => {
@@ -60,6 +72,7 @@ export default class RoomDetailsComponent extends Component {
           room_id: this.props.room.id,
           value: this.state.lightValue
         }
+
         this.props.control(data)
 
       })
@@ -106,7 +119,6 @@ export default class RoomDetailsComponent extends Component {
 
 
     render() {
-
         return (
             <View styles={styles.roomDetailsComponent} >
               <View style={{flexDirection: "row", alignItems: "center"}}>

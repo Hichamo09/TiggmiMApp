@@ -148,7 +148,6 @@ export default class Rooms extends Component {
     }
 
     updateLight = (data) => {
-      console.log('data', data);
       this.props.updateLight(data)
     }
 

@@ -3,7 +3,8 @@
 import { _objToArray, _filterRooms } from '../utils/_helpers';
 import NavigationService from '../routes/navigationService';
 import {
-  ROOMS_LIST
+  ROOMS_LIST,
+  UPDATE_PINS
 } from './types';
 
 export const getRooms = () => {
@@ -78,7 +79,11 @@ export const updateLight = (data) => {
     let ip = getState().auth.currentUser.ip;
     get(ip, `/api/update?idOut=${data.pin_id}&value=${data.value}&user_id=${userId}&room_id=${data.room_id}`)
     .then((result) => {
-      console.log('result');
+      console.log('result', result);
+      dispatch({
+        type: UPDATE_PINS,
+        payload: {room_id: data.room_id, pins: result.result}
+      })
     });
   }
 }

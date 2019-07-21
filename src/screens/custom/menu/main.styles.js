@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     },
     headerContainer: {
         height: 120,
-        paddingRight: 20,
+        paddingRight: 70,
         paddingTop: 30,
     },
     headerText: {
