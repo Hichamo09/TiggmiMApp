@@ -40,6 +40,9 @@ export default class drawerContentComponents extends Component {
                     <View style={styles.screenStyle}>
                         <Text onPress={this.navigateToScreen('Help')} style={styles.screenTextStyle}>Help</Text>
                     </View>
+                    <View style={styles.screenStyle}>
+                        <Text onPress={this.navigateToScreen('Login')} style={styles.screenTextStyle}>Login</Text>
+                    </View>
                 </View>
                 {
                 // <View style={styles.headerContainer}>

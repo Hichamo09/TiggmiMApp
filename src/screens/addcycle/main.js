@@ -64,7 +64,7 @@ export default class AddCycle extends Component {
       timePickerValue: "",
       refresh: false,
       selectedRoom: "",
-      selectedOption: "",
+      selectedItem: "",
       id: ""
     }
   }
@@ -118,26 +118,34 @@ export default class AddCycle extends Component {
 
   }
 
-  addRemoveRoom = (id) => {
-    // let index = this.state.selectedRooms.findIndex(x => x === id);
-    let index = this.state.selectedRooms.indexOf(id);
+  addRemoveRoom = (item) => {
+    // let index = this.state.selectedRooms.findIndex(x => x === item.id);
+    let index = this.state.selectedRooms.indexOf(item.id);
     if (index > -1) {
       // this.state.selectedRooms
-      let arr = this.state.selectedRooms.filter(x => x !== id);
+      let arr = this.state.selectedRooms.filter(x => x !== item.id);
       return this.setState({selectedRooms: arr})
     }
-    this.setState({selectedRooms: [...this.state.selectedRooms, id],
-      roomsItemsTime: [...this.state.roomsItemsTime, {
-        id: id,
-        item1: {
-          startTime: this.state.globalStartTime,
-          endTime: this.state.globalEndTime
-        },
-        item2: {
-          startTime: this.state.globalStartTime,
-          endTime: this.state.globalEndTime
-        }
-      }]
+
+    let roomsItemsTime = [...this.state.roomsItemsTime]
+    console.log('item.pins.', item.pins);
+    for (var i = 0; i < item.pins.length; i++) {
+      console.log('item', item.pins[i]);
+      console.log(roomsItemsTime);
+      roomsItemsTime.push({
+        id: item.id,
+        pin: item.pins[i].id,
+        type: item.pins[i].type,
+        startTime: this.state.globalStartTime,
+        endTime: this.state.globalEndTime,
+        value: false
+      })
+    }
+    console.log('roomsItemsTime', roomsItemsTime);
+    this.setState({selectedRooms: [...this.state.selectedRooms, item.id],
+      roomsItemsTime: roomsItemsTime
+    }, () => {
+      console.log('roooms', this.state.selectedRooms, this.state.roomsItemsTime);
     })
 
   }
@@ -157,8 +165,12 @@ export default class AddCycle extends Component {
         break;
       case "roomTime":
         let arr = Object.assign([], this.state.roomsItemsTime);
-        let obj = arr.find(x => x.id === this.state.selectedRoom);
-        obj[this.state.selectedOption][this.state.timeType] = `${hour}:${minute}`
+        console.log('arr', arr);
+        let obj = arr.find((x, i) => {
+          return x.id === this.state.selectedRoom && i === this.state.selectedItem
+        });
+        console.log('obj', obj);
+        obj[this.state.timeType] = `${hour}:${minute}`
         this.setState({
           roomsItemsTime: arr,
           refresh: !this.state.refresh
@@ -180,23 +192,23 @@ export default class AddCycle extends Component {
     console.log('this.state.roomsItemsTime', this.state.roomsItemsTime);
     arr = arr.map((item, index) => {
       console.log('item ', item, "index", index);
-      console.log(parseInt(item.item1.startTime.replace(":", "")) < parseInt(this.state.globalStartTime.replace(":", "")));
-      console.log(parseInt(item.item1.startTime.replace(":", "")), this.state.globalStartTime.replace(":", ""));
-      if (parseInt(item.item1.startTime.replace(":", "")) < parseInt(this.state.globalStartTime.replace(":", ""))) {
+      console.log(parseInt(item.startTime.replace(":", "")) < parseInt(this.state.globalStartTime.replace(":", "")));
+      console.log(parseInt(item.startTime.replace(":", "")), this.state.globalStartTime.replace(":", ""));
+      if (parseInt(item.startTime.replace(":", "")) < parseInt(this.state.globalStartTime.replace(":", ""))) {
         console.log('case 1');
-        item.item1.startTime = this.state.globalStartTime
+        item.startTime = this.state.globalStartTime
       }
-      if (parseInt(item.item2.startTime.replace(":", "")) < parseInt(this.state.globalStartTime.replace(":", ""))) {
+      if (parseInt(item.startTime.replace(":", "")) < parseInt(this.state.globalStartTime.replace(":", ""))) {
         console.log('case 2');
-        item.item2.startTime = this.state.globalStartTime
+        item.startTime = this.state.globalStartTime
       }
-      if (parseInt(item.item1.endTime.replace(":", "")) > parseInt(this.state.globalEndTime.replace(":", ""))) {
+      if (parseInt(item.endTime.replace(":", "")) > parseInt(this.state.globalEndTime.replace(":", ""))) {
         console.log('case 3');
-        item.item1.endTime = this.state.globalEndTime
+        item.endTime = this.state.globalEndTime
       }
-      if (parseInt(item.item2.endTime.replace(":", "")) > parseInt(this.state.globalEndTime.replace(":", ""))) {
+      if (parseInt(item.endTime.replace(":", "")) > parseInt(this.state.globalEndTime.replace(":", ""))) {
         console.log('case 4');
-        item.item2.endTime = this.state.globalEndTime
+        item.endTime = this.state.globalEndTime
       }
       return item;
 
@@ -217,100 +229,123 @@ export default class AddCycle extends Component {
     this.TimePicker.open()
   }
 
+  renderRoomsItem = (item, index, room) => {
+    item = item;
+    console.log('renderRoomsItem', item);
+    return (
+      <View style={styles.roomItems}>
+        <View style={styles.itemTitle}>
+          <Text>{item.type}</Text>
+        </View>
+        <View style={styles.itemController}>
+
+        </View>
+        <View style={{flex: 0.5, textAlign: "center", alignItems: "center"}}>
+          <Text>\</Text>
+        </View>
+
+        <View style={styles.itemStartTime}>
+          <TouchableOpacity
+          onPress={() => {
+            this.setState({timePickerValue: "roomTime", selectedRoom: room.id, selectedItem: index, timeType: "startTime"})
+            this.TimePicker.open()
+          }}
+          >
+          <Text style={{...styles.time, fontSize: 14}}>
+          {this.state.roomsItemsTime[index].startTime}
+          </Text>
+          <Text style={styles.smallText}>start</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={{flex: 0.5, textAlign: "center", alignItems: "center"}}>
+          <Text>\</Text>
+        </View>
+
+        <View style={styles.itemEndTime}>
+        <TouchableOpacity
+        onPress={() => {
+          this.setState({timePickerValue: "roomTime", selectedRoom: room.id, selectedItem: index, timeType: "endTime"})
+          this.TimePicker.open()
+        }}
+        >
+        <Text style={{...styles.time, fontSize: 14}}>
+        {console.log('this.state.roomsItemsTime.find(x => x.id === room.id)', this.state.roomsItemsTime.find(x => x.id === room.id))}
+        {console.log(this.state.roomsItemsTime, index, this.state.roomsItemsTime[index])}
+        {this.state.roomsItemsTime[index].endTime}
+        </Text>
+        <Text style={styles.smallText}>end</Text>
+        </TouchableOpacity>
+        </View>
+
+      </View>
+    )
+
+  }
+
   renderSelectedRooms = (item) => {
     let room = this.props.rooms.find(x => x.id === item.item);
-    console.log('item', item);
+
+    console.log('item renderSelectedRoomsssd', item, room);
     return (
       <View style={styles.roomBlock}>
         <Text style={styles.roomTitle}>{room.title}</Text>
-        <View style={styles.roomItems}>
-          <View style={styles.itemTitle}>
-            <Text>Light</Text>
-          </View>
-          <View style={styles.itemController}>
 
-          </View>
-          <View style={{flex: 0.5, textAlign: "center", alignItems: "center"}}>
-            <Text>\</Text>
-          </View>
+        <FlatList
+          data={room.pins}
+          extraData={this.state.refresh}
+          numColumns={1}
+          renderItem={({item, index}) => (
+            this.renderRoomsItem(item, index, room)
+          )}
+        />
 
-          <View style={styles.itemStartTime}>
-            <TouchableOpacity
-              onPress={() => {
-                this.setState({timePickerValue: "roomTime", selectedRoom: room.id, selectedOption: "item1", timeType: "startTime"})
-                this.TimePicker.open()
-              }}
-            >
-              <Text style={{...styles.time, fontSize: 14}}>
-                {this.state.roomsItemsTime.find(x => x.id === room.id).item1.startTime}
-              </Text>
-              <Text style={styles.smallText}>start</Text>
-            </TouchableOpacity>
-          </View>
+{
+  // <View style={styles.roomItems}>
+  // <View style={styles.itemTitle}>
+  // <Text>Shutter</Text>
+  // </View>
+  // <View style={styles.itemController}>
+  //
+  // </View>
+  // <View style={{flex: 0.5, textAlign: "center", alignItems: "center"}}>
+  // <Text>\</Text>
+  // </View>
+  //
+  // <View style={styles.itemStartTime}>
+  // <TouchableOpacity
+  // onPress={() => {
+  //   this.setState({timePickerValue: "roomTime", selectedRoom: room.id, selectedItem: "item2", timeType: "startTime"})
+  //   this.TimePicker.open()
+  // }}
+  // >
+  // <Text style={{...styles.time, fontSize: 14}}>
+  // {this.state.roomsItemsTime.find(x => x.id === room.id).item2.startTime}
+  // </Text>
+  // <Text style={styles.smallText}>start</Text>
+  // </TouchableOpacity>
+  // </View>
+  //
+  // <View style={{flex: 0.5, textAlign: "center", alignItems: "center"}}>
+  // <Text>\</Text>
+  // </View>
+  //
+  // <View style={styles.itemEndTime}>
+  // <TouchableOpacity
+  // onPress={() => {
+  //   this.setState({timePickerValue: "roomTime", selectedRoom: room.id, selectedItem: "item2", timeType: "endTime"})
+  //   this.TimePicker.open()
+  // }}
+  // >
+  // <Text style={{...styles.time, fontSize: 14}}>
+  // {this.state.roomsItemsTime.find(x => x.id === room.id).item2.endTime}
+  // </Text>
+  // <Text style={styles.smallText}>end</Text>
+  // </TouchableOpacity>
+  // </View>
+  // </View>
 
-          <View style={{flex: 0.5, textAlign: "center", alignItems: "center"}}>
-            <Text>\</Text>
-          </View>
-
-          <View style={styles.itemEndTime}>
-            <TouchableOpacity
-              onPress={() => {
-                this.setState({timePickerValue: "roomTime", selectedRoom: room.id, selectedOption: "item1", timeType: "endTime"})
-                this.TimePicker.open()
-              }}
-            >
-              <Text style={{...styles.time, fontSize: 14}}>
-                {this.state.roomsItemsTime.find(x => x.id === room.id).item1.endTime}
-              </Text>
-              <Text style={styles.smallText}>end</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-
-
-        <View style={styles.roomItems}>
-          <View style={styles.itemTitle}>
-            <Text>Shutter</Text>
-          </View>
-          <View style={styles.itemController}>
-
-          </View>
-          <View style={{flex: 0.5, textAlign: "center", alignItems: "center"}}>
-            <Text>\</Text>
-          </View>
-
-          <View style={styles.itemStartTime}>
-            <TouchableOpacity
-              onPress={() => {
-                this.setState({timePickerValue: "roomTime", selectedRoom: room.id, selectedOption: "item2", timeType: "startTime"})
-                this.TimePicker.open()
-              }}
-            >
-              <Text style={{...styles.time, fontSize: 14}}>
-                {this.state.roomsItemsTime.find(x => x.id === room.id).item2.startTime}
-              </Text>
-              <Text style={styles.smallText}>start</Text>
-            </TouchableOpacity>
-          </View>
-
-          <View style={{flex: 0.5, textAlign: "center", alignItems: "center"}}>
-            <Text>\</Text>
-          </View>
-
-          <View style={styles.itemEndTime}>
-            <TouchableOpacity
-              onPress={() => {
-                this.setState({timePickerValue: "roomTime", selectedRoom: room.id, selectedOption: "item2", timeType: "endTime"})
-                this.TimePicker.open()
-              }}
-            >
-              <Text style={{...styles.time, fontSize: 14}}>
-                {this.state.roomsItemsTime.find(x => x.id === room.id).item2.endTime}
-              </Text>
-              <Text style={styles.smallText}>end</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+}
       </View>
     )
   }
@@ -347,25 +382,28 @@ export default class AddCycle extends Component {
             <Text style={styles.blockTitle}>Peripherals:</Text>
           </View>
           {
-            this.state.selectedRooms.length > 1 && this.state.editMode ?
+            // this.state.selectedRooms.length > 0 && this.state.editMode ?
             <FlatList
               data={this.props.rooms}
               extraData={this.state.refresh}
               numColumns={2}
-              renderItem={({item, index}) => (
-                <RoomCard
-                  name={item.title}
-                  type={item.type}
-                  addRemoveRoom={this.addRemoveRoom}
-                  checked={this.checkedRoom(item.id)}
-                  id={item.id}
-                  select={true}
-                />
+              renderItem={({item, index}) => {
+                console.log('item', item, 'index', index);
+                return (
+                  <RoomCard
+                    name={item.title}
+                    type={item.type}
+                    item={item}
+                    addRemoveRoom={this.addRemoveRoom}
+                    checked={this.checkedRoom(item.id)}
+                    id={item.id}
+                    select={true}
+                  />
 
-              )}
+                )
+              }}
             />
-            :
-            null
+            // : null
           }
         </View>
 

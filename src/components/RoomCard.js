@@ -36,7 +36,7 @@ export default class RoomCard extends Component {
         <TouchableOpacity onPress={() => {
           if (this.props.select) {
             this.setState({checked: !this.state.checked})
-            this.props.addRemoveRoom(this.props.id)
+            this.props.addRemoveRoom(this.props.item)
           }
         }}>
           <View style={card}>
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
   roomTitle: {
     flex: 1,
     marginLeft: 5
-    
+
   },
   roomAccess: {
     flex: 2,

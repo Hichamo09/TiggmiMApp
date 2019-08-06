@@ -1,5 +1,8 @@
 import { StyleSheet } from 'react-native'
+import {Dimensions } from "react-native";
 
+
+const screenWidth = Math.round(Dimensions.get('window').width);
 
 const styles = StyleSheet.create({
   container: {
@@ -74,7 +77,7 @@ const styles = StyleSheet.create({
   },
   roomBlock: {
     marginLeft: 5,
-
+    flexWrap: 'wrap'
   },
   roomTitle: {
     fontSize: 17,
@@ -85,7 +88,8 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    width: screenWidth
   },
   itemTitle: {
     flex: 2,

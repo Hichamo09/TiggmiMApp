@@ -94,7 +94,9 @@ const styles = StyleSheet.create({
       height: 120,
       margin: 5,
       width: 50,
-      alignItems: "center"
+      alignItems: "center",
+      backgroundColor: "#ccc",
+      borderRadius: 50
     },
     lightValue: {
       width: "100%",

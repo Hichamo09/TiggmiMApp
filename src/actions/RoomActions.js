@@ -82,7 +82,7 @@ export const updateLight = (data) => {
       console.log('result', result);
       dispatch({
         type: UPDATE_PINS,
-        payload: {room_id: data.room_id, pins: result.result}
+        payload: {room_id: data.room_id, pins: result.pins}
       })
     });
   }
