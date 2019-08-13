@@ -73,17 +73,10 @@ export const updateRoom = (id, data) => {
 }
 
 
-export const updateLight = (data) => {
-  return (dispatch, getState) => {
-    let userId = getState().auth.currentUser.parentId;
-    let ip = getState().auth.currentUser.ip;
-    get(ip, `/api/update?idOut=${data.pin_id}&value=${data.value}&user_id=${userId}&room_id=${data.room_id}`)
-    .then((result) => {
-      console.log('result', result);
-      dispatch({
-        type: UPDATE_PINS,
-        payload: {room_id: data.room_id, pins: result.pins}
-      })
-    });
+export const updateLight = (pins, room_id) => {
+  return {
+    type: UPDATE_PINS,
+    payload: {room_id, pins: pins}
   }
+
 }

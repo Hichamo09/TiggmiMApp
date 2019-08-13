@@ -6,6 +6,7 @@ import Carousel, { Pagination } from 'react-native-snap-carousel';
 import {
   LineChart,
 } from 'react-native-chart-kit';
+import io from "socket.io-client";
 
 import Room from './roomComponent';
 import RoomDetailsComponent from './roomDetailsComponent';
@@ -14,6 +15,7 @@ import styles from './main.styles';
 import { _getRoomImage } from '../../utils/_helpers'
 
 import { Hours, Days, Months } from '../../config/chartData';
+
 
 
 
@@ -131,12 +133,18 @@ export default class Rooms extends Component {
     }
 
     componentDidMount () {
+      this.socket = io("http://10.0.2.2:3000", {});
+      this.socket.on("connect", () => {
+        console.log("------------yeeeeah connect");
+
+      });
       if (this.props.navigation.getParam('room_id')) {
         return this.setState({activeIndex: this.props.navigation.getParam('room_id')}, () => {
           this.setState({myText: this.props.rooms[this.state.activeIndex].title})
         })
       }
       this.setState({myText: this.props.rooms[this.state.activeIndex].title})
+
 
     }
 
@@ -148,7 +156,10 @@ export default class Rooms extends Component {
     }
 
     updateLight = (data) => {
-      this.props.updateLight(data)
+      this.socket.emit('event', data, (result) => {
+        console.log('result', result);
+        this.props.updateLight(result, data.room_id);
+      })
     }
 
     _renderTitle = () => {

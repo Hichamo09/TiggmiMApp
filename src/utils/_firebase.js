@@ -23,7 +23,7 @@ export const updateData = (ref, data) => {
 
 export const getData = (ref) => {
     return new Promise(function(resolve, reject) {
-      firebase.database().ref(ref).on('value', (snapshot) => {
+      firebase.database().ref(ref).once('value', (snapshot) => {
         resolve(snapshot.val())
       })
     });
