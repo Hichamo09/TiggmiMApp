@@ -118,6 +118,8 @@ export default class RoomDetailsComponent extends Component {
     }
 
 
+
+
     render() {
         return (
             <View styles={styles.roomDetailsComponent} >
@@ -129,8 +131,6 @@ export default class RoomDetailsComponent extends Component {
                   numColumns={2}
                   extraData={this.state.refresh}
                 />
-
-
 
 
                 {
@@ -162,9 +162,12 @@ export default class RoomDetailsComponent extends Component {
                 }
 
 
+
+
+
               </View>
 
-
+               
             </View>
         )
     }

@@ -6,15 +6,21 @@ import {
   TouchableOpacity,
   ScrollView,
   TextInput,
-  FlatList
+  FlatList,
+  Button,
+  Dimensions,
+  Slider
 } from 'react-native';
 import styles from './main.styles'
 import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import RoomCard from '../../components/RoomCard'
 import TimePicker from "react-native-24h-timepicker";
+import Modal from "react-native-modal";
 
 
+
+const screenWidth = Math.round(Dimensions.get('window').width);
 
 
 export default class AddCycle extends Component {
@@ -68,6 +74,8 @@ export default class AddCycle extends Component {
       selectedRoom: "",
       selectedItem: "",
       id: "",
+      showModal: false,
+      modalValue: 30,
       daysArray: [
         {id: 0, value: false, char: "M"},
         {id: 1, value: false, char: "T"},
@@ -81,6 +89,7 @@ export default class AddCycle extends Component {
   }
 
   componentDidMount () {
+    console.log('this§§§§§§§§§§§§§§§§§§', this);
     console.log('-------------this.props.rooms', this.props.rooms);
     this.setState({refresh: !this.state.refresh})
     this.props.navigation.setParams({
@@ -240,6 +249,19 @@ export default class AddCycle extends Component {
     })
   }
 
+  renderModal = () => {
+    console.log('render modal function ');
+    return (
+      <View>
+        <Modal>
+          <View style={{ flex }}>
+            <Text>I am the modal content!</Text>
+          </View>
+        </Modal>
+      </View>
+    )
+  }
+
 
   handleSelectedDaysStyle = (id) => {
     let index = this.state.selectedDays.indexOf(id);
@@ -262,16 +284,54 @@ export default class AddCycle extends Component {
     )
   }
 
+
+  handleModalValue = () => {
+    let arr = Object.assign([], this.state.roomsItemsTime)
+    console.log('arr', arr);
+    console.log('selectedRoom', this.state.selectedRoom);
+
+    let index = arr.findIndex((x,i) => x.id == this.state.selectedRoom  && i === this.state.selectedItem);
+    console.log('index', index);
+    arr[index].value = this.state.modalValue;
+    this.setState({roomsItemsTime: arr, refresh: !this.state.refresh}, () => {
+      console.log('this.State', this.state.roomsItemsTime);
+    });
+  }
+
+  calculItemControllerValue = (room_id, index) => {
+    let val = this.state.roomsItemsTime.find((x, i)=>x.id == room_id && i == index).value
+    return (screenWidth / 6) * val / 255;
+  }
+
   renderRoomsItem = (item, index, room) => {
     item = item;
+    console.log('item.', item.value);
     return (
       <View style={styles.roomItems}>
         <View style={styles.itemTitle}>
           <Text>{item.type}</Text>
         </View>
-        <View style={styles.itemController}>
+        <View style={{flex: 1}}>
 
+          <TouchableOpacity style={styles.itemController}
+            onPress={() => {
+              console.log('item', item, "index", index, "room", room);
+              console.log('itemtimes', this.state.roomsItemsTime);
+              this.setState({
+                showModal: true,
+                selectedRoom: room.id,
+                selectedItem: index,
+                modalValue: this.state.roomsItemsTime.find((x, i)=>x.id == room.id && i == index).value
+              })
+            }}
+          >
+            <View style={{width: this.calculItemControllerValue(room.id, index), height: 15, backgroundColor: "#2587af"}}>
+
+            </View>
+
+          </TouchableOpacity>
         </View>
+
         <View style={{flex: 0.5, textAlign: "center", alignItems: "center"}}>
           <Text>\</Text>
         </View>
@@ -496,8 +556,79 @@ export default class AddCycle extends Component {
               renderItem={this.renderDays}
             />
 
+            <View style={{ flex: 1 }}>
+              <Button title="Show modal" onPress={() => {
+                this.setState({showModal: true})
+              }} />
+              <Modal  isVisible={this.state.showModal}>
+                <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.2)', alignItems: "center", justifyContent: "center" }}>
+                <Slider
+                  style={{width: 255, height: 120}}
+                  minimumValue={0}
+                  maximumValue={255}
+                  onSlidingComplete={x => {
+                    console.log('new value', x);
+                    this.setState({modalValue: x})
+                  }}
+                  onValueChange={x => {
+                    console.log('new value', x);
+                    this.setState({modalValue: x})
+                  }}
+                  value={this.state.modalValue}
+                  minimumTrackTintColor="#FFFFFF"
+                  maximumTrackTintColor="#000000"
+                />
+
+                <Button title="Hide modal"  onPress={() => {
+                  this.handleModalValue()
+                  this.setState({showModal: false})
+                }}/>
+                  {
+                  //   <View style={{width: 255, height: "10%", backgroundColor: "#ccc", color: "#2587af", borderRadius: 15}}>
+                  // <View style={{width: this.state.modalValue, height: "100%", backgroundColor: "#2587af"}}>
+                  //
+                  // </View>
+                  // </View>
+                  //
+                  // <View style={{flexDirection: "row", alignItems: "center", marginTop: 15, marginBottom: 15}}>
+                  //   <TouchableOpacity
+                  //     style={{ backgroundColor: "#2587af",  borderRadius: 50, width: 50, height: 50, justifyContent: "center", alignItems: "center", margin: 10}}
+                  //     disabled={this.state.modalValue === 255 ? true : false}
+                  //     onPress={() => {
+                  //       if (this.state.modalValue >= 255) {
+                  //         return false
+                  //       }
+                  //
+                  //       this.setState({modalValue: this.state.modalValue + 5})
+                  //     }}
+                  //   >
+                  //     <Text style={{fontSize: 40, color: "#fff", textAlign: "center"}}>+</Text>
+                  //   </TouchableOpacity>
+                  //   <TouchableOpacity
+                  //     style={{ backgroundColor: "#2587af", borderRadius: 50, width: 50, height: 50, justifyContent: "center", alignItems: "center", margin: 10}}
+                  //     disabled={this.state.modalValue === 0 ? true : false}
+                  //     onPress={() => {
+                  //       if (this.state.modalValue === 0) {
+                  //         return false
+                  //       }
+                  //
+                  //       this.setState({modalValue: this.state.modalValue -5, refresh: !this.state.refresh})
+                  //     }}
+                  //   >
+                  //     <Text style={{fontSize: 60, color: "#fff", textAlign: "center"}}>-</Text>
+                  //   </TouchableOpacity>
+                  // </View>
+                  //
+                  //
+                }
+                </View>
+              </Modal>
+            </View>
 
         </View>
+
+
+
 
 
       </ScrollView>

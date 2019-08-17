@@ -95,13 +95,12 @@ const styles = StyleSheet.create({
     flex: 2,
   },
   itemController: {
-    flex: 1,
-    backgroundColor: "#2587af",
+    width: screenWidth / 6,
+    backgroundColor: "#ccc",
     padding: 3,
     borderRadius: 5,
     height: 15,
     justifyContent: "center",
-    alignItems: "center"
   },
   itemStartTime: {
     flex: 1
