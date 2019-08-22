@@ -6286,6 +6286,11 @@ react-native-vector-icons@6.4.2:
     prop-types "^15.6.2"
     yargs "^13.2.2"
 
+react-native-weather-api@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-weather-api/-/react-native-weather-api-2.0.0.tgz#c6371cd6ccbdcffa1e5eadb3dd77cb9e3c84dd9e"
+  integrity sha512-Aub7Fk99AUKH1oJRHU1Kr07iDoBC9167kZqmkXlb5xJYEc/ngrBzl32SbK3P9zSf8KUd19Or1266XxTLeEgHjA==
+
 react-native@0.59.5:
   version "0.59.5"
   resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.59.5.tgz#79500d2885a3dc83216715e1fc6effa878ad6ea9"

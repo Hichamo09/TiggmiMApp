@@ -89,7 +89,7 @@ export default class AddCycle extends Component {
   }
 
   componentDidMount () {
-    console.log('this§§§§§§§§§§§§§§§§§§', this);
+    console.log('this§§§§§§§§§§§§§§§§§§', this.props.user);
     console.log('-------------this.props.rooms', this.props.rooms);
     this.setState({refresh: !this.state.refresh})
     this.props.navigation.setParams({
@@ -561,23 +561,27 @@ export default class AddCycle extends Component {
                 this.setState({showModal: true})
               }} />
               <Modal  isVisible={this.state.showModal}>
-                <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.2)', alignItems: "center", justifyContent: "center" }}>
+                <View style={{ flex: 1, height: 10, backgroundColor: 'rgba(0,0,0,0.2)', alignItems: "center", justifyContent: "center" }}>
                 <Slider
                   style={{width: 255, height: 120}}
                   minimumValue={0}
                   maximumValue={255}
                   onSlidingComplete={x => {
                     console.log('new value', x);
-                    this.setState({modalValue: x})
+                    this.setState({modalValue: Math.round(x)})
                   }}
                   onValueChange={x => {
                     console.log('new value', x);
-                    this.setState({modalValue: x})
+                    this.setState({modalValue: Math.round(x)})
                   }}
                   value={this.state.modalValue}
-                  minimumTrackTintColor="#FFFFFF"
-                  maximumTrackTintColor="#000000"
+                  minimumTrackTintColor="#2587af"
+                  maximumTrackTintColor="#fff"
                 />
+
+                <View style={{alignItems: "center", flex: 1}}>
+                  <Text style={{fontSize: 25, color: "#fff", fontWeight: "700"}}>{Math.round(this.state.modalValue)}</Text>
+                </View>
 
                 <Button title="Hide modal"  onPress={() => {
                   this.handleModalValue()

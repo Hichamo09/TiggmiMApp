@@ -91,6 +91,8 @@ export default class Home extends Component {
    })
     this.props.checkAuth();
     this.props.getRooms();
+    this.props.getCycle();
+    this.props.getMembers();
 
   }
 
